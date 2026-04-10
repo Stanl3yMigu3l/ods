@@ -6,15 +6,28 @@
   <title>ODS 4 - Educação de Qualidade</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     html, body { height: 100%; margin: 0; }
     .font-heading { font-family: 'DM Serif Display', serif; }
     .font-body { font-family: 'Source Sans 3', sans-serif; }
-    .target-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .target-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(200, 50, 50, 0.1); }
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .target-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .target-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(200, 50, 50, 0.1);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .hero-number {
       font-size: clamp(120px, 20vw, 280px);
       line-height: 0.85;
@@ -30,471 +43,1466 @@
     .bg-sdg-red { background-color: #C52828; }
     .border-sdg-red { border-color: #C52828; }
     .bg-sdg-light { background-color: #FEF2F2; }
-    .accent-bar { width: 60px; height: 4px; background: #C52828; border-radius: 2px; }
-    .accent-bar-6 { width: 60px; height: 4px; background: #0891b2; border-radius: 2px; }
-    .icon-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .ods-badge { position: relative; cursor: help; }
+    .accent-bar {
+      width: 60px;
+      height: 4px;
+      background: #C52828;
+      border-radius: 2px;
+    }
+    .accent-bar-6 {
+      width: 60px;
+      height: 4px;
+      background: #0891b2;
+      border-radius: 2px;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .floating-element {
+      animation: float 4s ease-in-out infinite;
+    }
+    .bg-decoration {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.15;
+    }
+
+    .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ods-badge {
+      position: relative;
+      cursor: help;
+    }
     .ods-tooltip {
-      position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-      background: rgba(0,0,0,0.9); color: white; padding: 6px 12px; border-radius: 6px;
-      font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0;
-      pointer-events: none; transition: opacity 0.2s ease; z-index: 40; margin-bottom: 8px;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 40;
+      margin-bottom: 8px;
     }
-    .ods-badge:hover .ods-tooltip { opacity: 1; }
+    .ods-badge:hover .ods-tooltip {
+      opacity: 1;
+    }
     .ods-tooltip::after {
-      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      border: 4px solid transparent; border-top-color: rgba(0,0,0,0.9);
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.9);
     }
+    /* Fundo branco com círculos sutis */
     html, body {
-      background: linear-gradient(180deg, #FECACA 0%, #FECACA 30%, #BAE6FD 45%, #FED7AA 70%, #FED7AA 100%);
-      background-attachment: fixed;
+      background: #FFFFFF;
       height: 100%;
+      position: relative;
     }
-    /* Video modal */
-    #videoModal { display: none; }
-    #videoModal.open { display: flex; }
-    video::-webkit-media-controls { border-radius: 0 0 16px 16px; }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: -300px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(197, 40, 40, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -400px;
+      left: -250px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(8, 145, 178, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="font-body text-gray-800 h-full overflow-auto" id="mainBody">
-  <div class="w-full min-h-full" id="mainWrapper">
-
-   <!-- Nav -->
+  <div class="w-full min-h-full" id="mainWrapper"><!-- Nav -->
    <nav class="w-full border-b border-gray-100 bg-white/90 backdrop-blur-sm sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
      <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-sdg-red rounded-lg flex items-center justify-center">
-       <span class="text-white font-heading text-lg font-bold">4</span>
-      </div>
-      <span class="font-heading text-xl text-gray-900">ODS 4</span>
+      <div class="w-10 h-10 bg-sdg-red rounded-lg flex items-center justify-center"><i data-lucide="globe" style="width:24px;height:24px;color:white;"></i>
+      </div><span class="font-heading text-xl text-gray-900" id="nav-title">ODS</span>
      </div>
-     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
-      <a href="#ods4" class="hover:text-gray-900 transition-colors">ODS 4</a>
-      <a href="#ods6" class="hover:text-gray-900 transition-colors">ODS 6</a>
-      <a href="#ods7" class="hover:text-gray-900 transition-colors">ODS 7</a>
-      <a href="#eixos" class="hover:text-gray-900 transition-colors">Eixos</a>
+     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500"><a href="#ods4" class="hover:text-gray-900 transition-colors">ODS 4</a> <a href="#ods6" class="hover:text-gray-900 transition-colors">ODS 6</a> <a href="#ods7" class="hover:text-gray-900 transition-colors">ODS 7</a> <a href="#eixos" class="hover:text-gray-900 transition-colors">Eixos</a>
      </div>
      <div class="md:hidden flex gap-2">
-      <button onclick="document.getElementById('ods4').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 4</button>
-      <button onclick="document.getElementById('ods6').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 6</button>
-      <button onclick="document.getElementById('ods7').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 7</button>
-      <button onclick="document.getElementById('eixos').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">Eixos</button>
+      <button onclick="document.getElementById('ods4').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 4</button> <button onclick="document.getElementById('ods6').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 6</button> <button onclick="document.getElementById('ods7').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 7</button> <button onclick="document.getElementById('eixos').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">Eixos</button>
      </div>
     </div>
-   </nav>
-
-   <!-- Hero ODS 4 -->
+   </nav><!-- Seção Introdutória - O que é ODS (Movida para o topo) -->
+   <section class="w-full bg-white relative overflow-hidden border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
+     <div class="fade-in">
+      <div class="inline-block bg-red-50 rounded-full px-4 py-2 mb-6 border border-red-200"><span class="text-sm font-semibold uppercase tracking-wider text-red-600">Agenda 2030</span>
+      </div>
+      <h1 class="font-heading text-4xl md:text-5xl mb-6 leading-tight text-gray-900">O que são os Objetivos de Desenvolvimento Sustentável?</h1>
+      <p class="text-lg leading-relaxed mb-6 text-gray-600">Os Objetivos de Desenvolvimento Sustentável (ODS) são um apelo global à ação para acabar com a pobreza, proteger o meio ambiente e o clima, e garantir que as pessoas, em todos os lugares, possam desfrutar de paz e de prosperidade.</p>
+      <p class="text-base leading-relaxed text-gray-600">Estes são os 17 objetivos para os quais as Nações Unidas estão contribuindo a fim de que possamos atingir a Agenda 2030 no Brasil e no mundo.</p>
+     </div>
+    </div>
+   </section><!-- Hero -->
    <header id="ods4" class="w-full bg-white relative overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 py-20 md:py-32 relative">
-     <div class="hero-number" aria-hidden="true">4</div>
+     <div class="hero-number" aria-hidden="true">
+      4
+     </div>
      <div class="relative z-10 max-w-2xl">
-      <div class="flex items-center gap-3 mb-6">
-       <span class="bg-sdg-red text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 4</span>
-       <span class="text-gray-400 text-sm">Agenda 2030</span>
+      <div class="flex items-center gap-3 mb-6"><span class="bg-sdg-red text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 4</span> <span class="text-gray-400 text-sm">Agenda 2030</span>
       </div>
-      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight">Educação de Qualidade</h1>
-      <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-8">Garantir o acesso à educação inclusiva, de qualidade e equitativa, e promover oportunidades de aprendizagem ao longo da vida para todos.</p>
+      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight" id="ods4-title">Educação de Qualidade</h1>
+      <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8" id="ods4-intro">Garantir o acesso à educação inclusiva, de qualidade e equitativa, e promover oportunidades de aprendizagem ao longo da vida para todos.</p>
       <div class="accent-bar"></div>
      </div>
     </div>
-   </header>
-
-   <!-- Objective statement -->
+   </header><!-- Objective statement -->
    <section class="w-full bg-white">
     <div class="max-w-4xl mx-auto px-6 py-20 text-center fade-in">
      <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">O Objetivo</p>
      <p class="font-heading text-2xl md:text-3xl text-gray-800 leading-snug">Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todas e todos.</p>
     </div>
-   </section>
-
-   <!-- Vídeo -->
-   <section class="w-full bg-white">
-    <div class="max-w-4xl mx-auto px-6 py-16 fade-in">
-     <!-- Thumbnail clicável -->
-     <button onclick="openVideoModal()" class="block w-full cursor-pointer border-none p-0 bg-transparent hover:opacity-90 transition-opacity">
-      <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-black relative group">
-       <div class="relative w-full" style="padding-bottom: 56.25%;">
-        <img
-         src="https://drive.google.com/thumbnail?id=1F-u6xSJQ4T-VBRNZs4f5mG6ONaDx_3a8&sz=w1280"
-         alt="ODS 4 - Educação de Qualidade"
-         loading="lazy"
-         class="absolute inset-0 w-full h-full object-cover"
-         onerror="this.style.background='#1f2937';">
-        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-         <div class="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:bg-white transition-all group-hover:scale-110">
-          <i data-lucide="play" style="width:40px;height:40px;color:#C52828;margin-left:4px;"></i>
-         </div>
-        </div>
-       </div>
-      </div>
-     </button>
-     <p class="text-center text-gray-400 text-sm mt-4">▶ Clique para assistir — Educação de Qualidade para o desenvolvimento sustentável</p>
-    </div>
-   </section>
-
-   <!-- Metas ODS 4 -->
+   </section><!-- Metas ODS 4 -->
    <section id="metas4" class="w-full bg-gray-50">
     <div class="max-w-6xl mx-auto px-6 py-20">
      <div class="text-center mb-16 fade-in">
       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Metas até 2030</p>
       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">ODS 4 — As 7 Metas Principais</h2>
      </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="targets-grid-4">
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="graduation-cap" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.1</div>
-        <p class="text-gray-500 text-sm leading-relaxed">Garantir que todas as meninas e meninos completem o ensino primário e secundário livre, equitativo e de qualidade, que conduza a resultados de aprendizagem relevantes e eficazes.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="graduation-cap" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.1
+         </div>
+         <p class="text-gray-700 text-sm leading-relaxed">Garantir que todas as meninas e meninos completem o ensino primário e secundário livre, equitativo e de qualidade, que conduza a resultados de aprendizagem relevantes e eficazes.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="baby" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.2</div>
-        <p class="text-gray-500 text-sm leading-relaxed">Garantir que todos as meninas e meninos tenham acesso a um desenvolvimento de qualidade na primeira infância, cuidados e educação pré-escolar, de modo que estejam prontos para o ensino primário.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="baby" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.2
+         </div>
+         <p class="text-gray-700 text-sm leading-relaxed">Garantir que todos as meninas e meninos tenham acesso a um desenvolvimento de qualidade na primeira infância, cuidados e educação pré-escolar, de modo que estejam prontos para o ensino primário.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="library" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.3 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div>
-        <p class="text-gray-500 text-sm leading-relaxed">Assegurar a igualdade de acesso para todos os homens e mulheres à educação técnica, profissional e superior de qualidade, a preços acessíveis, incluindo universidade.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="library" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.3 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Assegurar a igualdade de acesso para todos os homens e mulheres à educação técnica, profissional e superior de qualidade, a preços acessíveis, incluindo universidade.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="briefcase" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.4 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div>
-        <p class="text-gray-500 text-sm leading-relaxed">Aumentar substancialmente o número de jovens e adultos que tenham habilidades relevantes, inclusive competências técnicas e profissionais, para emprego, trabalho decente e empreendedorismo.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="briefcase" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.4 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Aumentar substancialmente o número de jovens e adultos que tenham habilidades relevantes, inclusive competências técnicas e profissionais, para emprego, trabalho decente e empreendedorismo.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="equal" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.5 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div>
-        <p class="text-gray-500 text-sm leading-relaxed">Eliminar as disparidades de gênero na educação e garantir a igualdade de acesso a todos os níveis de educação e formação profissional para os mais vulneráveis, incluindo pessoas com deficiência, povos indígenas, e crianças em situação de vulnerabilidade.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="equal" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.5 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Eliminar as disparidades de gênero na educação e garantir a igualdade de acesso a todos os níveis de educação e formação profissional para os mais vulneráveis, incluindo pessoas com deficiência, povos indígenas, e crianças em situação de vulnerabilidade.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="book-open" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.6</div>
-        <p class="text-gray-500 text-sm leading-relaxed">Garantir que todos os jovens e uma substancial proporção dos adultos, homens e mulheres, estejam alfabetizados e tenham adquirido o conhecimento básico de matemática.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="book-open" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.6
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Garantir que todos os jovens e uma substancial proporção dos adultos, homens e mulheres, estejam alfabetizados e tenham adquirido o conhecimento básico de matemática.</p>
+        </div>
        </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 md:col-span-2 fade-in">
        <div class="flex items-start gap-4">
-        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="globe" style="width:22px;height:22px"></i></div>
-        <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 4.7 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div>
-        <p class="text-gray-500 text-sm leading-relaxed">Garantir que todos os alunos adquiram conhecimentos e habilidades necessárias para promover o desenvolvimento sustentável, inclusive por meio da educação para estilos de vida sustentáveis, direitos humanos, igualdade de gênero, promoção de uma cultura de paz e não violência, cidadania global e valorização da diversidade cultural.</p></div>
+        <div class="icon-circle bg-sdg-light sdg-red"><i data-lucide="globe" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 4.7 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Garantir que todos os alunos adquiram conhecimentos e habilidades necessárias para promover o desenvolvimento sustentável, inclusive por meio da educação para estilos de vida sustentáveis, direitos humanos, igualdade de gênero, promoção de uma cultura de paz e não violência, cidadania global e valorização da diversidade cultural.</p>
+        </div>
        </div>
       </div>
      </div>
     </div>
-   </section>
-
-   <!-- ODS 6 Hero -->
+   </section><!-- ODS 6 - Água e Saneamento -->
    <header id="ods6" class="w-full bg-gradient-to-br from-blue-50 to-cyan-50 relative overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 py-20 md:py-32 relative">
-     <div class="hero-number" style="color:#0891b220;" aria-hidden="true">6</div>
+     <div class="hero-number" style="color: #0891b220;" aria-hidden="true">
+      6
+     </div>
      <div class="relative z-10 max-w-2xl">
-      <div class="flex items-center gap-3 mb-6">
-       <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 6</span>
-       <span class="text-gray-400 text-sm">Agenda 2030</span>
+      <div class="flex items-center gap-3 mb-6"><span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 6</span> <span class="text-gray-400 text-sm">Agenda 2030</span>
       </div>
-      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight">Água Potável e Saneamento</h1>
-      <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-8">Garantir a disponibilidade e a gestão sustentável da água potável e do saneamento para todos.</p>
+      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight" id="ods6-title">Água Potável e Saneamento</h1>
+      <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-8" id="ods6-intro">Garantir a disponibilidade e a gestão sustentável da água potável e do saneamento para todos.</p>
       <div class="accent-bar-6"></div>
      </div>
     </div>
-   </header>
-
-   <!-- Objective ODS 6 -->
+   </header><!-- Objective statement ODS 6 -->
    <section class="w-full bg-white">
     <div class="max-w-4xl mx-auto px-6 py-20 text-center fade-in">
      <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">O Objetivo</p>
      <p class="font-heading text-2xl md:text-3xl text-gray-800 leading-snug">Assegurar a disponibilidade e gestão sustentável da água e saneamento para todas e todos.</p>
     </div>
-   </section>
-
-   <!-- Metas ODS 6 -->
+   </section><!-- Metas ODS 6 -->
    <section id="metas6" class="w-full bg-gray-50">
     <div class="max-w-6xl mx-auto px-6 py-20">
      <div class="text-center mb-16 fade-in">
       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Metas até 2030</p>
       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">ODS 6 — As 6 Metas Principais</h2>
      </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="targets-grid-6">
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="droplet" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.1</div><p class="text-gray-500 text-sm leading-relaxed">Alcançar o acesso universal e equitativo a água potável e segura para todos.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="droplet" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.1
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Alcançar o acesso universal e equitativo a água potável e segura para todos.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="pipe" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.2</div><p class="text-gray-500 text-sm leading-relaxed">Alcançar o acesso a saneamento e higiene adequados e equitativos para todos, acabando com a defecação a céu aberto.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="pipe" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.2
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Alcançar o acesso a saneamento e higiene adequados e equitativos para todos, acabando com a defecação a céu aberto.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="wind" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.3 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div><p class="text-gray-500 text-sm leading-relaxed">Melhorar a qualidade da água, reduzindo a poluição, eliminando despejo e minimizando a liberação de produtos químicos e materiais perigosos, reduzindo à metade a proporção de águas residuais não tratadas e aumentando substancialmente a reciclagem e reutilização segura globalmente.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="wind" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.3 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Melhorar a qualidade da água, reduzindo a poluição, eliminando despejo e minimizando a liberação de produtos químicos e materiais perigosos, reduzindo à metade a proporção de águas residuais não tratadas e aumentando substancialmente a reciclagem e reutilização segura globalmente.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="leaf" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.4 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div><p class="text-gray-500 text-sm leading-relaxed">Aumentar substancialmente a eficiência do uso da água em todos os setores e assegurar retiradas sustentáveis e o abastecimento de água doce para enfrentar a escassez de água.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="leaf" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.4 <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Aumentar substancialmente a eficiência do uso da água em todos os setores e assegurar retiradas sustentáveis e o abastecimento de água doce para enfrentar a escassez de água, e reduzir substancialmente o número de pessoas que sofrem com a escassez de água.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="globe" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.5</div><p class="text-gray-500 text-sm leading-relaxed">Implementar a gestão integrada dos recursos hídricos em todos os níveis, inclusive via cooperação transfronteiriça.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="globe" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.5
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Implementar a gestão integrada dos recursos hídricos em todos os níveis, inclusive via cooperação transfronteiriça.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="trees" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 6.b <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div><p class="text-gray-500 text-sm leading-relaxed">Apoiar e fortalecer a participação das comunidades locais, para melhorar a gestão da água e do saneamento.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-blue-50 text-blue-600"><i data-lucide="trees" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 6.b <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Apoiar e fortalecer a participação das comunidades locais, para melhorar a gestão da água e do saneamento.</p>
+        </div>
+       </div>
       </div>
      </div>
     </div>
-   </section>
-
-   <!-- ODS 7 Hero -->
+   </section><!-- ODS 7 - Energia Limpa e Acessível -->
    <header id="ods7" class="w-full bg-gradient-to-br from-yellow-50 to-orange-50 relative overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 py-20 md:py-32 relative">
-     <div class="hero-number" style="color:#ea580c20;" aria-hidden="true">7</div>
+     <div class="hero-number" style="color: #ea580c20;" aria-hidden="true">
+      7
+     </div>
      <div class="relative z-10 max-w-2xl">
-      <div class="flex items-center gap-3 mb-6">
-       <span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 7</span>
-       <span class="text-gray-400 text-sm">Agenda 2030</span>
+      <div class="flex items-center gap-3 mb-6"><span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Objetivo 7</span> <span class="text-gray-400 text-sm">Agenda 2030</span>
       </div>
-      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight">Energia Limpa e Acessível</h1>
-      <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-8">Garantir o acesso a fontes de energia fiáveis, sustentáveis e modernas para todos.</p>
-      <div style="width:60px;height:4px;background:#ea580c;border-radius:2px;"></div>
+      <h1 class="font-heading text-4xl md:text-6xl text-gray-900 mb-6 leading-tight" id="ods7-title">Energia Limpa e Acessível</h1>
+      <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-8" id="ods7-intro">Garantir o acesso a fontes de energia fiáveis, sustentáveis e modernas para todos.</p>
+      <div style="background-color: #ea580c;" class="accent-bar-7"></div>
      </div>
     </div>
-   </header>
-
-   <!-- Objective ODS 7 -->
+   </header><!-- Objective statement ODS 7 -->
    <section class="w-full bg-white">
     <div class="max-w-4xl mx-auto px-6 py-20 text-center fade-in">
      <p class="text-sm uppercase tracking-widest text-gray-400 mb-4">O Objetivo</p>
      <p class="font-heading text-2xl md:text-3xl text-gray-800 leading-snug">Assegurar o acesso confiável, sustentável, moderno e a preço acessível à energia para todas e todos.</p>
     </div>
-   </section>
-
-   <!-- Metas ODS 7 -->
+   </section><!-- Metas ODS 7 -->
    <section id="metas7" class="w-full bg-gray-50">
     <div class="max-w-6xl mx-auto px-6 py-20">
      <div class="text-center mb-16 fade-in">
       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Metas até 2030</p>
       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">ODS 7 — As Metas Principais</h2>
      </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="targets-grid-7">
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="zap" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 7.1</div><p class="text-gray-500 text-sm leading-relaxed">Até 2030, assegurar o acesso universal, confiável, moderno e a preços acessíveis a serviços de energia.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="zap" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 7.1
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Até 2030, assegurar o acesso universal, confiável, moderno e a preços acessíveis a serviços de energia.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="sun" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 7.2</div><p class="text-gray-500 text-sm leading-relaxed">Até 2030, aumentar substancialmente a participação de energias renováveis na matriz energética global.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="sun" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 7.2
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Até 2030, aumentar substancialmente a participação de energias renováveis na matriz energética global.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="trending-down" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 7.3</div><p class="text-gray-500 text-sm leading-relaxed">Até 2030, dobrar a taxa global de melhoria da eficiência energética.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="trending-down" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 7.3
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Até 2030, dobrar a taxa global de melhoria da eficiência energética.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="handshake" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 7.a <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div><p class="text-gray-500 text-sm leading-relaxed">Até 2030, reforçar a cooperação internacional para facilitar o acesso a pesquisa e tecnologias de energia limpa, incluindo energias renováveis, eficiência energética e tecnologias de combustíveis fósseis avançadas e mais limpas.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="handshake-2" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 7.a <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Até 2030, reforçar a cooperação internacional para facilitar o acesso a pesquisa e tecnologias de energia limpa, incluindo energias renováveis, eficiência energética e tecnologias de combustíveis fósseis avançadas e mais limpas, e promover o investimento em infraestrutura de energia e em tecnologias de energia limpa.</p>
+        </div>
+       </div>
       </div>
       <div class="target-card bg-white rounded-2xl p-6 border border-gray-100 fade-in">
-       <div class="flex items-start gap-4"><div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="building-2" style="width:22px;height:22px"></i></div>
-       <div><div class="font-heading text-lg text-gray-900 mb-2">Meta 7.b <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span></div><p class="text-gray-500 text-sm leading-relaxed">Até 2030, expandir a infraestrutura e modernizar a tecnologia para o fornecimento de serviços de energia modernos e sustentáveis para todos nos países em desenvolvimento.</p></div></div>
+       <div class="flex items-start gap-4">
+        <div class="icon-circle bg-orange-50 text-orange-600"><i data-lucide="building-2" style="width:22px;height:22px"></i>
+        </div>
+        <div>
+         <div class="font-heading text-lg text-gray-900 mb-2">
+          Meta 7.b <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded ml-2">SENAC</span>
+         </div>
+         <p class="text-gray-500 text-sm leading-relaxed">Até 2030, expandir a infraestrutura e modernizar a tecnologia para o fornecimento de serviços de energia modernos e sustentáveis para todos nos países em desenvolvimento, particularmente nos países menos desenvolvidos, nos pequenos Estados insulares em desenvolvimento e nos países em desenvolvimento sem litoral, de acordo com seus respectivos programas de apoio.</p>
+        </div>
+       </div>
       </div>
      </div>
-    </div>
+    </div><!-- Seção de Exemplos de Sucesso -->
+    <section class="w-full bg-gradient-to-b from-white via-green-50 to-white border-t border-gray-100">
+     <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16 fade-in">
+       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Práticas que Funcionam</p>
+       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">Exemplos de Sucesso — Projetos que Transformam</h2>
+       <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Conheça iniciativas reais que estão gerando impacto positivo na sociedade</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><!-- Exemplo 0: HAJA - ODS 1 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://static.wixstatic.com/media/fb25ec_241b082d337146e6aa3187516bd6b1a2~mv2_d_5472_3648_s_4_2.jpg/v1/fill/w_1141,h_410,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/fb25ec_241b082d337146e6aa3187516bd6b1a2~mv2_d_5472_3648_s_4_2.jpg" alt="HAJA - Transformação social em comunidades vulneráveis" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#7c2d12'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-orange-100 text-orange-600"><i data-lucide="users" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-orange-100 text-orange-700 uppercase tracking-wider">ODS 1</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-700 uppercase tracking-wider">Pobreza</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">HAJA</h3>
+           <p class="text-gray-500 text-sm mt-1">Transformação social em comunidades vulneráveis</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-orange-50 rounded-lg border-l-4 border-orange-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> HAJA trabalha com jovens e crianças em situação de extrema vulnerabilidade na comunidade de Quatro Rodas, em Jardim Gramacho, uma das regiões mais carentes do Rio de Janeiro, oferecendo oportunidades de desenvolvimento educacional e social.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação e Desenvolvimento:</strong> Programas de formação e desenvolvimento para crianças e jovens em vulnerabilidade</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Transformação Comunitária:</strong> Atuação direta em comunidades periféricas com foco em mudança social</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Oportunidades de Futuro:</strong> Abertura de caminhos para pessoas que vivem na extrema pobreza</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full font-medium">1.2 — Redução da pobreza</span> <span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full font-medium">1.3 — Proteção social adequada</span> <span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">4.3 — Educação de qualidade</span>
+          </div>
+         </div><a href="https://www.haja.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 1: ECOMAMOR - ODS 2 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutolegado.org/wp/wp-content/uploads/elementor/thumbs/LE2019_178-ptbmobrnxznyjhg5il459ytegg429zzsqabg7q5trk.png" alt="ECOMAMOR - Agroecologia e Alimentação" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fef3c7'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-yellow-100 text-yellow-600"><i data-lucide="leaf" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 uppercase tracking-wider">ODS 2</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700 uppercase tracking-wider">Sustentabilidade</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">ECOMAMOR</h3>
+           <p class="text-gray-500 text-sm mt-1">Educação, alimentação e agroecologia nas cidades</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Organização goiana que conecta pessoas para potencializar ações transformadoras através de educação, alimentação e agroecologia, trazendo práticas sustentáveis para as comunidades urbanas.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação Agroecológica:</strong> Capacitação e formação em práticas sustentáveis de cultivo e alimentação</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Segurança Alimentar:</strong> Promoção de acesso a alimentos saudáveis e nutritivos produzidos localmente</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Transformação Comunitária:</strong> Empoderamento de comunidades através de ações integradas em cidades</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">2.1 — Segurança alimentar</span> <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">2.3 — Produtividade agrícola</span> <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">2.4 — Agricultura sustentável</span>
+          </div>
+         </div><a href="https://institutolegado.org/tvlegado/eu-me-importo-em-acao-instituto-ecomamor/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 2: Unidos pela Vida - ODS 3 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutolegado.org/wp/wp-content/uploads/2020/08/tv-legado-unidos-pela-vida-440x248.jpg" alt="Unidos pela Vida - Saúde e Bem-estar" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#dcfce7'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-green-100 text-green-600"><i data-lucide="heart-pulse" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700 uppercase tracking-wider">ODS 3</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700 uppercase tracking-wider">Saúde</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Unidos pela Vida</h3>
+           <p class="text-gray-500 text-sm mt-1">Fortalecendo o ecossistema da Fibrose Cística</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-green-50 rounded-lg border-l-4 border-green-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Instituto dedicado a fortalecer e desenvolver o ecossistema da Fibrose Cística, melhorando a qualidade de vida de pacientes, familiares e demais envolvidos através de ações integradas de atenção à saúde.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Atenção Integral:</strong> Assistência especializada e contínua para pacientes com Fibrose Cística</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Apoio Familiar:</strong> Suporte psicossocial e educacional para familiares e cuidadores</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Advocacy e Pesquisa:</strong> Promoção de políticas públicas e avanços na pesquisa sobre fibrose cística</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">3.3 — Doenças transmissíveis</span> <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">3.4 — Saúde mental e bem-estar</span> <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">3.8 — Cobertura universal de saúde</span>
+          </div>
+         </div><a href="https://institutolegado.org/tvlegado/eu-me-importo-unidos-pela-vida/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 3: Fundação Lemann - ODS 4 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://fundacaolemann.org.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2026/01/NAG_7036-Aprimorado-NR-768x512.jpg.webp" alt="Fundação Lemann - Educação para todos" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#1e3a8a'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-red-100 text-red-600"><i data-lucide="tv" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-700 uppercase tracking-wider">ODS 4</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700 uppercase tracking-wider">Educação</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Fundação Lemann</h3>
+           <p class="text-gray-500 text-sm mt-1">Educação digital inclusiva e de qualidade</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-red-50 rounded-lg border-l-4 border-red-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Em parceria com a Fundação Roberto Marinho e o CIEB, a Fundação Lemann desenvolveu o projeto "Vamos Aprender", que oferece aulas e programas educativos pela televisão, plataforma online e aplicativo, gratuitamente para estudantes de todos os ciclos escolares.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação Multicanal:</strong> Acesso a aulas através de televisão, plataforma online e aplicativo móvel</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Inclusão Digital:</strong> Democratização do acesso à educação de qualidade para todos os ciclos escolares</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Acesso Gratuito:</strong> Educação de qualidade sem barreiras econômicas para estudantes brasileiros</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">4.1 — Ensino primário e secundário</span> <span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">4.2 — Desenvolvimento na primeira infância</span> <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">4.7 — Educação em valores humanitários</span>
+          </div>
+         </div><a href="https://fundacaolemann.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 4: Tech Girls - ODS 5 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://techgirls.com.br/wp-content/uploads/2024/10/banner_1-1536x508.png" alt="Tech Girls - Banner" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fee2e2'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-red-100 text-red-600"><i data-lucide="heart" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-700 uppercase tracking-wider">ODS 5</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-700 uppercase tracking-wider">Impacto Social</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Tech Girls</h3>
+           <p class="text-gray-500 text-sm mt-1">Democratizando tecnologia para mulheres</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-red-50 rounded-lg border-l-4 border-red-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Tech Girls torna acessível o conhecimento sobre tecnologia para mulheres autônomas e donas de casa por meio de aulas gratuitas e doação de laptops recuperados.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação Digital:</strong> Cursos gratuitos em áreas como programação básica, design gráfico e literacia digital</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Inclusão Econômica:</strong> Equipamentos recuperados doados para mulheres iniciarem negócios digitais</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Autonomia Feminina:</strong> Empoderamento através do acesso à tecnologia e oportunidades de renda</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">5.1 — Igualdade de acesso</span> <span class="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">5.5 — Participação efetiva</span> <span class="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">4.4 — Habilidades profissionais</span>
+          </div>
+         </div><a href="https://techgirls.com.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 5: Missão Social Sustentável Livres - ODS 6 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutolivres.org.br/wp-content/uploads/2023/11/MISSAO-SOCIAL_HEADER_-768x504.png" alt="Missão Social Sustentável - Água potável" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#cffafe'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-cyan-100 text-cyan-600"><i data-lucide="droplet" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 uppercase tracking-wider">ODS 6</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-700 uppercase tracking-wider">Água</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Missão Social Sustentável Livres</h3>
+           <p class="text-gray-500 text-sm mt-1">Água potável para comunidades vulneráveis</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-cyan-50 rounded-lg border-l-4 border-cyan-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Viabiliza soluções de acesso à água potável para comunidades quilombolas e sertanejas que sofrem com a seca, a fome e a sede, promovendo sustentabilidade hídrica em regiões vulneráveis.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Acesso à Água Potável:</strong> Implementação de sistemas de captação e armazenamento de água em regiões de seca</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Comunidades Quilombolas e Sertanejas:</strong> Foco em populações historicamente marginalizadas e vulneráveis à seca</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Sustentabilidade Hídrica:</strong> Soluções inovadoras para garantir segurança hídrica de longo prazo</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full font-medium">6.1 — Acesso a água potável</span> <span class="text-xs bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full font-medium">6.2 — Saneamento e higiene</span> <span class="text-xs bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full font-medium">6.4 — Eficiência hídrica</span>
+          </div>
+         </div><a href="https://institutolivres.org.br/missao-social/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 6: Litro de Luz - ODS 7 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://static.wixstatic.com/media/e0e96e_99b3e32ed9b84c5abfa4004689a2f3d6~mv2.jpg/v1/fill/w_820,h_281,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/e0e96e_99b3e32ed9b84c5abfa4004689a2f3d6~mv2.jpg" alt="Litro de Luz - Iluminação solar" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fef3c7'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-amber-100 text-amber-600"><i data-lucide="sun" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700 uppercase tracking-wider">ODS 7</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-orange-100 text-orange-700 uppercase tracking-wider">Energia Solar</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Litro de Luz Brasil</h3>
+           <p class="text-gray-500 text-sm mt-1">Iluminação solar para comunidades sem acesso a energia</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-amber-50 rounded-lg border-l-4 border-amber-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Presente nas cinco regiões do país, o Litro de Luz Brasil leva iluminação solar a comunidades sem acesso à energia ou sem luz nas ruas por meio de postes, lampiões e soluções solares compostas por materiais simples como garrafa PET e canos PVC, além de placa solar, bateria e LED.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Energia Renovável:</strong> Soluções 100% movidas a energia solar sem custos operacionais</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Sustentabilidade Ambiental:</strong> Uso de materiais reciclados (garrafas PET) e tecnologia de baixo custo</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Cobertura Nacional:</strong> Atuação em todas as regiões do Brasil com presença em comunidades rurais e periféricas</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">7.1 — Acesso universal a energia</span> <span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">7.2 — Energias renováveis</span> <span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full font-medium">12.2 — Consumo sustentável</span>
+          </div>
+         </div><a href="https://www.litrodeluz.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 7: Mães que Florescem - ODS 8 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://static.wixstatic.com/media/81271e_f5b990a21d74438ea3a9a5e478a0a46e~mv2.jpg/v1/fill/w_828,h_910,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/81271e_f5b990a21d74438ea3a9a5e478a0a46e~mv2.jpg" alt="Mães que Florescem - Artesanato sustentável" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fde2e4'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-rose-100 text-rose-600"><i data-lucide="flower" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-700 uppercase tracking-wider">ODS 8</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-pink-100 text-pink-700 uppercase tracking-wider">Empreendedorismo</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Mães que Florescem</h3>
+           <p class="text-gray-500 text-sm mt-1">Renda e empoderamento através do artesanato sustentável</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-rose-50 rounded-lg border-l-4 border-rose-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Capacitação e geração de renda para mães em vulnerabilidade social fazendo produtos artesanais a partir de resíduos da indústria calçadista, transformando materiais descartados em itens de valor agregado e criando oportunidades econômicas.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Geração de Renda:</strong> Criação de oportunidades econômicas para mães em situação de vulnerabilidade social</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Economia Circular:</strong> Reutilização de resíduos da indústria calçadista em produtos artesanais de qualidade</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Empodera​mento Feminino:</strong> Capacitação profissional e desenvolvimento de habilidades para mulheres trabalhadoras</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-rose-100 text-rose-700 px-2.5 py-1 rounded-full font-medium">8.3 — Empreendedorismo e inovação</span> <span class="text-xs bg-rose-100 text-rose-700 px-2.5 py-1 rounded-full font-medium">8.5 — Trabalho decente e igualitário</span> <span class="text-xs bg-pink-100 text-pink-700 px-2.5 py-1 rounded-full font-medium">5.5 — Liderança feminina</span>
+          </div>
+         </div><a href="https://www.maesqueflorescem.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 8: SUDOTEC - ODS 9 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://sudotec.org.br/images/incubadora.jpeg" alt="SUDOTEC - Incubadora de inovação" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fef3c7'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-yellow-100 text-yellow-600"><i data-lucide="lightbulb" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 uppercase tracking-wider">ODS 9</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-orange-100 text-orange-700 uppercase tracking-wider">Inovação</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">SUDOTEC</h3>
+           <p class="text-gray-500 text-sm mt-1">Ecossistema de inovação e incubação no sudoeste paranaense</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> SUDOTEC desenvolve o ecossistema do sudoeste do Paraná através do conhecimento, inovação e tecnologia, possuindo uma incubadora que estimula, apoia e transforma ideias em empresas inovadoras de impacto.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Incubadora de Startups:</strong> Apoio e mentoria para transformar ideias inovadoras em empresas de tecnologia</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Desenvolvimento Regional:</strong> Fortalecimento do ecossistema de inovação no sudoeste paranaense</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Transferência de Conhecimento:</strong> Conexão entre academia, empresas e empreendedores inovadores</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">9.2 — Industrialização inclusiva</span> <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">9.5 — Pesquisa e inovação</span> <span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full font-medium">8.3 — Empreendedorismo</span>
+          </div>
+         </div><a href="https://sudotec.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 9: Youngers - ODS 10 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutolegado.org/wp/wp-content/uploads/elementor/thumbs/Youngers-1-pv1sr75agryjt5y8j8s6gbwivuaur4eoni19e7knpg.png" alt="Youngers - Capacitação e empreendedorismo" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#e0e7ff'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-indigo-100 text-indigo-600"><i data-lucide="users" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 uppercase tracking-wider">ODS 10</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-700 uppercase tracking-wider">Igualdade</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Youngers</h3>
+           <p class="text-gray-500 text-sm mt-1">Consultoria social para empreendedorismo comunitário</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-indigo-50 rounded-lg border-l-4 border-indigo-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Consultoria Social que oferece capacitação e incentiva o empreendedorismo nas comunidades Vila Torres e Cajuru, em Curitiba, reduzindo desigualdades e gerando oportunidades de desenvolvimento econômico local.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Capacitação Comunitária:</strong> Oferta de treinamentos e orientação empresarial em comunidades vulneráveis</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Redução de Desigualdades:</strong> Promoção de igualdade de oportunidades para grupos historicamente excluídos</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Desenvolvimento Econômico Local:</strong> Fortalecimento de pequenos negócios e geração de emprego nas comunidades</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-medium">10.2 — Inclusão social e econômica</span> <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-medium">10.3 — Igualdade de oportunidades</span> <span class="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">8.3 — Empreendedorismo</span>
+          </div>
+         </div><a href="https://institutolegado.org/blog/impacto-positivo-e-ativo-faz-parte-da-essencia-da-youngers/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 10: TETO - ODS 11 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://br.techo.org/wp-content/uploads/sites/32/2024/07/53496215595_700136e23c_o-1-881x1024.jpg" alt="TETO - Comunidades sustentáveis" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fca5a5'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-red-100 text-red-600"><i data-lucide="home" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-700 uppercase tracking-wider">ODS 11</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-orange-100 text-orange-700 uppercase tracking-wider">Cidades</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">TETO</h3>
+           <p class="text-gray-500 text-sm mt-1">Transformação de comunidades vulneráveis em cidades sustentáveis</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-red-50 rounded-lg border-l-4 border-red-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> TETO promove que as populações de comunidades vulneráveis sejam atores transformadores do território em que vivem. Garante o direito à cidade e transforma locais precários em comunidades sustentáveis através de ações integradas.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Direito à Cidade:</strong> Garantia de acesso a habitação adequada, infraestrutura e serviços básicos</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Protagonismo Comunitário:</strong> Comunidades como atoras principais da transformação territorial</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Sustentabilidade Urbana:</strong> Transformação de assentamentos precários em comunidades sustentáveis e resilientes</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">11.1 — Habitação segura e adequada</span> <span class="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">11.3 — Urbanização inclusiva</span> <span class="text-xs bg-orange-100 text-orange-700 px-2.5 py-1 rounded-full font-medium">11.7 — Espaços públicos verdes</span>
+          </div>
+         </div><a href="https://br.techo.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 11: Olha o Peixe! - ODS 12 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutolegado.org/wp/wp-content/uploads/2020/05/WhatsApp-Image-2020-05-20-at-13.55.10-600x450.jpeg" alt="Olha o Peixe - Consumo responsável de pescados" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#dbeafe'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-blue-100 text-blue-600"><i data-lucide="fish" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700 uppercase tracking-wider">ODS 12</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-100 text-cyan-700 uppercase tracking-wider">Consumo</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Olha o Peixe!</h3>
+           <p class="text-gray-500 text-sm mt-1">Consumo responsável de pescados e fortalecimento comunitário</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Fortalece as comunidades de pescadores e promove um consumo mais consciente de pescados, levando não só o produto mas informações técnicas que auxiliam o consumo responsável e sustentável.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação ao Consumidor:</strong> Informações técnicas sobre consumo responsável e sustentável de pescados</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Fortalecimento de Pescadores:</strong> Apoio direto às comunidades pesqueiras locais</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Produção Sustentável:</strong> Conexão entre consumo responsável e práticas de pesca sustentável</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">12.3 — Redução de desperdício</span> <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">12.8 — Consciência sustentável</span> <span class="text-xs bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full font-medium">14.4 — Pesca sustentável</span>
+          </div>
+         </div><a href="https://olhaopeixe.com.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 12: Clima de Política - ODS 13 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://talentoo.net/wp-content/uploads/2023/11/clima_politico.jpg" alt="Clima de Política - Educação climática" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#d4edda'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-emerald-100 text-emerald-600"><i data-lucide="leaf" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 uppercase tracking-wider">ODS 13</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700 uppercase tracking-wider">Clima</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Clima de Política</h3>
+           <p class="text-gray-500 text-sm mt-1">Educação climática na política institucional</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Qualifica o debate sobre mudanças climáticas na política institucional em todos os níveis de governo, a partir da capacitação e articulação de candidaturas e mandatos comprometidos com a ação climática.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Capacitação Política:</strong> Formação de candidatos e mandatários sobre políticas climáticas</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Articulação Multinível:</strong> Atuação em todas as esferas de governo para integrar clima nas agendas políticas</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Advocacy Climático:</strong> Promoção de políticas públicas comprometidas com mitigação e adaptação</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">13.2 — Integração climática em políticas</span> <span class="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">13.3 — Educação e consciência climática</span> <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">16.7 — Tomada de decisão participativa</span>
+          </div>
+         </div><a href="https://climadepolitica.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 13: Anjos do Mar - ODS 14 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://anjosdomar.org/wp-content/uploads/2022/05/equipe-anjos-do-mar-05.jpg" alt="Anjos do Mar - Proteção dos oceanos" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#0369a1'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-sky-100 text-sky-600"><i data-lucide="waves" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-sky-100 text-sky-700 uppercase tracking-wider">ODS 14</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700 uppercase tracking-wider">Oceanos</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Anjos do Mar</h3>
+           <p class="text-gray-500 text-sm mt-1">Salvamento e proteção dos oceanos</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-sky-50 rounded-lg border-l-4 border-sky-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Tem como missão salvar vidas e proteger os oceanos por meio de educação náutica e ambiental, atendimento emergencial, monitoramento ambiental embarcado, ações de coleta de lixo das praias e apoio à defesa civil.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação Ambiental:</strong> Formação em educação náutica e consciência ambiental marinha</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Limpeza e Monitoramento:</strong> Coleta de lixo em praias e monitoramento embarcado dos oceanos</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Resposta Emergencial:</strong> Atendimento de emergências marinhas e apoio à defesa civil</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-sky-100 text-sky-700 px-2.5 py-1 rounded-full font-medium">14.1 — Redução da poluição marinha</span> <span class="text-xs bg-sky-100 text-sky-700 px-2.5 py-1 rounded-full font-medium">14.2 — Proteção de ecossistemas marinhos</span> <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">14.5 — Conservação de áreas marinhas</span>
+          </div>
+         </div><a href="https://anjosdomar.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 14: Cerrado de Pé - ODS 15 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://static.wixstatic.com/media/d518f4_1251187bd4934d439c90960ecd445e60~mv2.jpg/v1/fill/w_329,h_277,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/d518f4_1251187bd4934d439c90960ecd445e60~mv2.jpg" alt="Cerrado de Pé - Conservação do Cerrado" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#dcfce7'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-lime-100 text-lime-600"><i data-lucide="trees" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-lime-100 text-lime-700 uppercase tracking-wider">ODS 15</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700 uppercase tracking-wider">Biodiversidade</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Cerrado de Pé</h3>
+           <p class="text-gray-500 text-sm mt-1">Conservação e recuperação do Cerrado</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-lime-50 rounded-lg border-l-4 border-lime-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Localizada na Chapada dos Veadeiros, a associação Cerrado de Pé trabalha na conservação e recuperação do Cerrado, coletando sementes de gramíneas, ervas, arbustos e árvores de espécies nativas para projetos de recuperação de áreas degradadas.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Coleta de Sementes:</strong> Coleta sustentável de sementes nativas do Cerrado</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Restauração de Áreas:</strong> Iniciativas de recuperação e reflorestamento de biomas degradados</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Conservação de Biodiversidade:</strong> Proteção de espécies nativas e preservação do patrimônio genético</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-lime-100 text-lime-700 px-2.5 py-1 rounded-full font-medium">15.2 — Manejo florestal sustentável</span> <span class="text-xs bg-lime-100 text-lime-700 px-2.5 py-1 rounded-full font-medium">15.3 — Restauração de ecossistemas</span> <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">15.5 — Redução da perda de biodiversidade</span>
+          </div>
+         </div><a href="https://www.cerradodepe.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 15: Instituto Aurora - ODS 16 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://institutoaurora.org/wp-content/uploads/2024/06/onu-480x360.jpeg" alt="Instituto Aurora - Direitos Humanos" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#7c3aed'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-violet-100 text-violet-600"><i data-lucide="heart-handshake" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-violet-100 text-violet-700 uppercase tracking-wider">ODS 16</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-700 uppercase tracking-wider">Direitos</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Instituto Aurora</h3>
+           <p class="text-gray-500 text-sm mt-1">Educação em direitos humanos e diálogo humanitário</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-violet-50 rounded-lg border-l-4 border-violet-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Tem a missão de educar em direitos humanos, ampliando a compreensão do tema e promovendo diálogos para que as pessoas compreendam que todos nós compartilhamos uma mesma humanidade.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Educação em Direitos:</strong> Formação contínua em direitos humanos e dignidade humana</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Diálogos Inclusivos:</strong> Promoção de conversas que conectam pessoas em torno da humanidade compartilhada</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Consciência Coletiva:</strong> Ampliação do entendimento sobre direitos e responsabilidades compartilhadas</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full font-medium">16.1 — Redução da violência</span> <span class="text-xs bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full font-medium">16.10 — Liberdades fundamentais</span> <span class="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">4.7 — Educação em valores humanitários</span>
+          </div>
+         </div><a href="https://institutoaurora.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div><!-- Exemplo 16: Pacto Global - ODS 17 -->
+       <div class="target-card bg-white rounded-2xl overflow-hidden border border-gray-100 fade-in hover:shadow-lg transition-shadow">
+        <img src="https://www.pactoglobal.org.br/wp-content/uploads/al_opt_content/IMAGE/www.pactoglobal.org.br/wp-content/uploads/2025/06/2W3A3869-scaled.jpg.bv_resized_desktop.jpg.bv.webp?bv_host=www.pactoglobal.org.br" alt="Pacto Global - Parcerias para ODS" class="w-full h-48 object-cover" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#fbbf24'; this.alt='Imagem indisponível';">
+        <div class="p-8">
+         <div class="flex items-start gap-4 mb-6">
+          <div class="icon-circle bg-amber-100 text-amber-600"><i data-lucide="globe" style="width:24px;height:24px"></i>
+          </div>
+          <div>
+           <div class="flex items-center gap-2 mb-2"><span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700 uppercase tracking-wider">ODS 17</span> <span class="text-xs font-bold px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 uppercase tracking-wider">Parcerias</span>
+           </div>
+           <h3 class="font-heading text-xl text-gray-900">Pacto Global</h3>
+           <p class="text-gray-500 text-sm mt-1">Mobilização de empresas para os ODS</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-amber-50 rounded-lg border-l-4 border-amber-600">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>O Projeto:</strong> Lançado em 2000 pelo secretário-geral das Nações Unidas, Kofi Annan, o Pacto Global é uma chamada para as empresas alinharem suas estratégias e operações a 10 princípios universais em Direitos Humanos, Trabalho, Meio Ambiente e Anticorrupção.</p>
+         </div>
+         <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Direitos Humanos:</strong> Alinhamento de operações empresariais com direitos humanos universais</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Sustentabilidade Ambiental:</strong> Compromisso com práticas ambientalmente responsáveis e combate à corrupção</p>
+          </div>
+          <div class="flex items-start gap-3"><i data-lucide="check-circle" style="width:18px;height:18px;color:#16a34a;flex-shrink:0;margin-top:2px"></i>
+           <p class="text-sm text-gray-600"><strong>Ação para os ODS:</strong> Contribuição direta de empresas para o cumprimento da Agenda 2030</p>
+          </div>
+         </div>
+         <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-xs font-semibold text-gray-600 mb-2">Metas ODS Atendidas:</p>
+          <div class="flex flex-wrap gap-2"><span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">17.16 — Parcerias multissetoriais</span> <span class="text-xs bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full font-medium">17.17 — Parcerias público-privadas</span> <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">Todas as metas dos ODS</span>
+          </div>
+         </div><a href="https://www.pactoglobal.org.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors"> Conheça o Projeto <i data-lucide="external-link" style="width:16px;height:16px"></i> </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Seção de Conteúdo Complementar -->
+    <section class="w-full bg-gradient-to-b from-white to-gray-50 border-t border-gray-100" id="odos">
+     <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16 fade-in">
+       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Aprofunde o Conhecimento</p>
+       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">Conteúdos Temáticos</h2>
+       <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Explore tópicos relacionados aos ODS 4, 6 e 7 e aos eixos estratégicos</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="target-card bg-white rounded-2xl p-8 border border-gray-100 fade-in">
+        <div class="mb-4">
+         <div class="icon-circle bg-red-100 text-red-600 mb-4"><i data-lucide="book-open" style="width:24px;height:24px"></i>
+         </div>
+         <h3 class="font-heading text-xl text-gray-900 mb-3">ODS 4 — SENAC: Educação Profissional</h3>
+        </div>
+        <p class="text-gray-600 leading-relaxed mb-4 text-sm"><strong>Aplicação no SENAC:</strong> O SENAC oferece mais de 1.500 cursos de formação profissional em diversas áreas (tecnologia, saúde, administração, turismo, etc.), priorizando inclusão social e acesso igualitário.</p>
+        <div class="bg-red-50 rounded-lg p-3 mb-3 border-l-4 border-red-600">
+         <p class="text-xs text-gray-700"><strong>Exemplos práticos:</strong></p>
+         <ul class="text-xs text-gray-600 mt-2 space-y-1">
+          <li>• Bolsas de estudo para pessoas com baixa renda</li>
+          <li>• Programas para jovens aprendizes (artigos 430-438 da CLT)</li>
+          <li>• Cursos gratuitos em comunidades vulneráveis</li>
+          <li>• Educação continuada para trabalhadores desempregados</li>
+          <li>• Programas inclusivos para pessoas com deficiência</li>
+         </ul>
+        </div>
+        <p class="text-xs text-gray-500 italic">Meta 4.3 e 4.4 — Educação técnica e profissional de qualidade para emprego digno</p>
+       </div>
+       <div class="target-card bg-white rounded-2xl p-8 border border-gray-100 fade-in">
+        <div class="mb-4">
+         <div class="icon-circle bg-blue-100 text-blue-600 mb-4"><i data-lucide="droplet" style="width:24px;height:24px"></i>
+         </div>
+         <h3 class="font-heading text-xl text-gray-900 mb-3">ODS 6 — SENAC: Saneamento &amp; Gestão</h3>
+        </div>
+        <p class="text-gray-600 leading-relaxed mb-4 text-sm"><strong>Aplicação no SENAC:</strong> O SENAC capacita profissionais em gestão hídrica, tratamento de água e esgoto, incluindo sistemas municipais de saneamento que garantem água segura e retorno responsável à natureza.</p>
+        <div class="bg-blue-50 rounded-lg p-3 mb-3 border-l-4 border-blue-600">
+         <p class="text-xs text-gray-700"><strong>Exemplos práticos:</strong></p>
+         <ul class="text-xs text-gray-600 mt-2 space-y-1">
+          <li>• Cursos de "Técnico em Saneamento Ambiental"</li>
+          <li>• Formação em operação de ETA (Estação de Tratamento de Água)</li>
+          <li>• Operação de ETE (Estação de Tratamento de Esgoto)</li>
+          <li>• Tratamento e devolução responsável de águas residuais ao sistema municipal</li>
+          <li>• Gestão de resíduos sólidos e reciclagem</li>
+          <li>• Água potável para cozinhas profissionais e restaurantes</li>
+          <li>• Higiene e segurança alimentar em estabelecimentos</li>
+         </ul>
+        </div>
+        <p class="text-xs text-gray-500 italic">Meta 6.2, 6.3 e 6.4 — Saneamento adequado, qualidade da água e eficiência no tratamento</p>
+       </div>
+       <div class="target-card bg-white rounded-2xl p-8 border border-gray-100 fade-in">
+        <div class="mb-4">
+         <div class="icon-circle bg-orange-100 text-orange-600 mb-4"><i data-lucide="zap" style="width:24px;height:24px"></i>
+         </div>
+         <h3 class="font-heading text-xl text-gray-900 mb-3">ODS 7 — SENAC: Energia Limpa</h3>
+        </div>
+        <p class="text-gray-600 leading-relaxed mb-4 text-sm"><strong>Aplicação no SENAC:</strong> O SENAC forma profissionais em energias renováveis, eficiência energética e tecnologias limpas, alinhando-se com a transição para economia de baixo carbono.</p>
+        <div class="bg-orange-50 rounded-lg p-3 mb-3 border-l-4 border-orange-600">
+         <p class="text-xs text-gray-700"><strong>Exemplos práticos:</strong></p>
+         <ul class="text-xs text-gray-600 mt-2 space-y-1">
+          <li>• Cursos de "Técnico em Energia Solar e Fotovoltaica"</li>
+          <li>• Formação em instalação de painéis solares</li>
+          <li>• Eficiência energética em edificações</li>
+          <li>• Cozinhas com equipamentos econômicos</li>
+          <li>• Certificações em sustentabilidade empresarial</li>
+         </ul>
+        </div>
+        <p class="text-xs text-gray-500 italic">Meta 7.2 e 7.a — Energias renováveis, eficiência e inovação tecnológica</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- EIXOS ESTRATÉGICOS -->
+    <section id="eixos" class="w-full bg-white">
+     <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16 fade-in">
+       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Estratégias Integradas</p>
+       <h2 class="font-heading text-3xl md:text-4xl text-gray-900" id="eixos-title">6 Eixos Estratégicos para a Agenda 2030</h2>
+       <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Pilares fundamentais para implementação efetiva dos Objetivos de Desenvolvimento Sustentável</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="eixos-grid">
+       <!-- Eixo 1 -->
+       <div class="target-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-blue-600 text-white"><i data-lucide="landmark" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 1 — Instituições Democráticas</h3>
+          <p class="text-gray-600 text-sm mt-2">Fortalecer instituições e assegurar controle social</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais estratégias devem ser adotadas para fortalecer as instituições democráticas e assegurar o controle social e o diálogo aberto na implementação de políticas públicas representativas?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Instituições democráticas • Participação cidadã • Transparência • Prestação de contas • Políticas representativas</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 5<span class="ods-tooltip">Igualdade de Género</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 10<span class="ods-tooltip">Redução de Desigualdades</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 11<span class="ods-tooltip">Cidades Sustentáveis</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 16<span class="ods-tooltip">Paz e Justiça</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 18<span class="ods-tooltip">Igualdade Étnico-Racial</span></span>
+        </div>
+       </div><!-- Eixo 2 -->
+       <div class="target-card bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-green-600 text-white"><i data-lucide="leaf" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 2 — Sustentabilidade Ambiental</h3>
+          <p class="text-gray-600 text-sm mt-2">Preservar recursos naturais e biodiversidade</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais medidas práticas devem ser propostas para que as cadeias produtivas assegurem a preservação dos recursos naturais e da biodiversidade, fortalecendo a resiliência climática?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Recursos naturais • Biodiversidade • Cadeias produtivas • Resiliência climática • Práticas de preservação</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 6<span class="ods-tooltip">Água Potável e Saneamento</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 7<span class="ods-tooltip">Energia Limpa e Acessível</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 11<span class="ods-tooltip">Cidades Sustentáveis</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 12<span class="ods-tooltip">Consumo Responsável</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 13<span class="ods-tooltip">Ação Climática</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 14/15<span class="ods-tooltip">Vida Aquática e Terrestre</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 18<span class="ods-tooltip">Igualdade Étnico-Racial</span></span>
+        </div>
+       </div><!-- Eixo 3 -->
+       <div class="target-card bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-purple-600 text-white"><i data-lucide="users" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 3 — Inclusão Social</h3>
+          <p class="text-gray-600 text-sm mt-2">Combater desigualdades e promover equidade</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">Como garantir que as vozes dos grupos priorizados pelas políticas públicas sejam ouvidas na construção coletiva de uma sociedade mais justa e equitativa?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Inclusão social • Grupos priorizados • Sociedade justa • Equidade • Combate às desigualdades</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 1<span class="ods-tooltip">Erradicação da Pobreza</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 2<span class="ods-tooltip">Fome Zero</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 3<span class="ods-tooltip">Saúde e Bem-estar</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 4<span class="ods-tooltip">Educação de Qualidade</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 5<span class="ods-tooltip">Igualdade de Género</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 18<span class="ods-tooltip">Igualdade Étnico-Racial</span></span>
+        </div>
+       </div><!-- Eixo 4 -->
+       <div class="target-card bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-8 border border-cyan-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-cyan-600 text-white"><i data-lucide="lightbulb" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 4 — Inovação Tecnológica</h3>
+          <p class="text-gray-600 text-sm mt-2">Soluções criativas para desafios socioambientais</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">De que forma a inovação tecnológica deve ser incentivada como ferramenta eficaz para gerar soluções que enfrentem os desafios sociais e ambientais?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Inovação tecnológica • Desafios socioambientais • Soluções criativas • Ferramenta eficaz • Desenvolvimento sustentável</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 4<span class="ods-tooltip">Educação de Qualidade</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 7<span class="ods-tooltip">Energia Limpa e Acessível</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 8<span class="ods-tooltip">Trabalho Decente</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 9<span class="ods-tooltip">Indústria e Inovação</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 11<span class="ods-tooltip">Cidades Sustentáveis</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 12/13<span class="ods-tooltip">Consumo e Clima</span></span>
+        </div>
+       </div><!-- Eixo 5 -->
+       <div class="target-card bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 border border-indigo-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-indigo-600 text-white"><i data-lucide="network" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 5 — Governança Participativa</h3>
+          <p class="text-gray-600 text-sm mt-2">Colaboração e integração de perspectivas</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais modelos de colaboração entre setores podem ser estabelecidos para garantir a integração de perspectivas e implementação efetiva dos ODS?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Governança participativa • Transparência • Colaboração setorial • Integração de perspectivas • Implementação efetiva</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 5<span class="ods-tooltip">Igualdade de Género</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 10<span class="ods-tooltip">Redução de Desigualdades</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 11<span class="ods-tooltip">Cidades Sustentáveis</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 16<span class="ods-tooltip">Paz e Justiça</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 18<span class="ods-tooltip">Igualdade Étnico-Racial</span></span>
+        </div>
+       </div><!-- Eixo 6 -->
+       <div class="target-card bg-gradient-to-br from-rose-50 to-rose-100 rounded-2xl p-8 border border-rose-200 fade-in">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="icon-circle bg-rose-600 text-white"><i data-lucide="handshake-2" style="width:24px;height:24px"></i>
+         </div>
+         <div>
+          <h3 class="font-heading text-xl text-gray-900">Eixo 6 — Colaboração Multissetorial</h3>
+          <p class="text-gray-600 text-sm mt-2">Financiamento e esforços coletivos</p>
+         </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais estratégias de colaboração multissetorial devem ser instituídas para unir esforços e assegurar recursos adequados para a Agenda 2030?</p>
+        <div class="bg-white rounded-lg p-3 mb-3">
+         <p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p>
+         <p class="text-xs text-gray-500">Colaboração multissetorial • Financiamento • Recursos adequados • Organismos internacionais • Esforços coletivos</p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+         <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 8<span class="ods-tooltip">Trabalho Decente</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 9<span class="ods-tooltip">Indústria e Inovação</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 13<span class="ods-tooltip">Ação Climática</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 16<span class="ods-tooltip">Paz e Justiça</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span> <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 18<span class="ods-tooltip">Igualdade Étnico-Racial</span></span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Seção Outros ODS -->
+    <section class="w-full bg-gray-50 border-t border-gray-100">
+     <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16 fade-in">
+       <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Outros Objetivos</p>
+       <h2 class="font-heading text-3xl md:text-4xl text-gray-900">Agenda 2030 — Os 17 Objetivos de Desenvolvimento Sustentável</h2>
+       <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Conheça os demais objetivos que complementam a Agenda 2030 das Nações Unidas</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(1, 'Erradicação da Pobreza', 'Objetivo 1. Acabar com a pobreza em todas as suas formas, em todos os lugares', ['1.1 Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,90 por dia', '1.2 Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza em todas as suas dimensões', '1.3 Implementar, em nível nacional, medidas e sistemas de proteção social adequados para todos, incluindo pisos de proteção social', '1.4 Até 2030, garantir que todos os homens e mulheres tenham direitos iguais aos recursos econômicos, bem como acesso a serviços básicos, propriedade e controle sobre a terra', '1.5 Até 2030, construir a resiliência dos pobres e daqueles em situação de vulnerabilidade frente a eventos extremos relacionados com o clima', '1.a Garantir mobilização significativa de recursos para implementar programas e políticas de erradicação da pobreza nos países em desenvolvimento', '1.b Criar marcos políticos sólidos com base em estratégias de desenvolvimento a favor dos pobres e sensíveis a gênero'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">1</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Erradicação da Pobreza</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Acabar com a pobreza em todas as suas formas</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(2, 'Fome Zero', 'Objetivo 2. Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição e promover a agricultura sustentável', ['2.1 Até 2030, acabar com a fome e garantir o acesso de todas as pessoas, em particular os pobres e pessoas em situações vulneráveis, incluindo crianças, a alimentos seguros, nutritivos e suficientes durante todo o ano', '2.2 Até 2030, acabar com todas as formas de desnutrição, incluindo atingir as metas acordadas internacionalmente sobre nanismo e caquexia em crianças menores de cinco anos, e atender às necessidades nutricionais dos adolescentes, mulheres grávidas, lactantes e pessoas idosas', '2.3 Até 2030, dobrar a produtividade agrícola e a renda dos pequenos produtores de alimentos, particularmente das mulheres, povos indígenas, agricultores familiares, pastores e pescadores', '2.4 Até 2030, garantir sistemas sustentáveis de produção de alimentos e implementar práticas agrícolas resilientes que aumentem a produtividade e a produção, mantendo os ecossistemas', '2.5 Até 2020, manter a diversidade genética de sementes, plantas cultivadas, animais de criação e domesticados e suas respectivas espécies selvagens', '2.a Aumentar o investimento em infraestrutura rural, pesquisa e extensão de serviços agrícolas, desenvolvimento de tecnologia, e os bancos de genes de plantas e animais', '2.b Corrigir e prevenir as restrições ao comércio e distorções nos mercados agrícolas mundiais, incluindo a eliminação de subsídios à exportação', '2.c Adotar medidas para garantir o funcionamento adequado dos mercados de commodities de alimentos e facilitar o acesso à informação de mercado'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-yellow-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">2</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Fome Zero</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Segurança alimentar e agricultura sustentável</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(3, 'Saúde e Bem-estar', 'Objetivo 3. Assegurar uma vida saudável e promover o bem-estar para todas e todos, em todas as idades', ['3.1 Até 2030, reduzir a taxa de mortalidade materna global para menos de 70 mortes por 100.000 nascidos vivos', '3.2 Até 2030, acabar com as mortes evitáveis de recém-nascidos e crianças menores de 5 anos, reduzindo a mortalidade neonatal para pelo menos 12 por 1.000 nascidos vivos e mortalidade infantil para 25 por 1.000 nascidos vivos', '3.3 Até 2030, acabar com as epidemias de AIDS, tuberculose, malária e doenças tropicais negligenciadas, e combater a hepatite, doenças transmitidas pela água e outras doenças transmissíveis', '3.4 Até 2030, reduzir em um terço a mortalidade prematura por doenças não transmissíveis via prevenção e tratamento, e promover a saúde mental e o bem-estar', '3.5 Reforçar a prevenção e o tratamento do abuso de substâncias, incluindo o abuso de drogas e uso nocivo do álcool', '3.6 Até 2020, reduzir pela metade as mortes e os ferimentos globais por acidentes em estradas', '3.7 Até 2030, assegurar o acesso universal aos serviços de saúde sexual e reprodutiva, incluindo planejamento familiar, informação e educação', '3.8 Atingir a cobertura universal de saúde, incluindo proteção do risco financeiro, acesso a serviços de saúde essenciais e acesso a medicamentos e vacinas essenciais a preços acessíveis', '3.9 Até 2030, reduzir substancialmente o número de mortes e doenças por produtos químicos perigosos, contaminação e poluição do ar, água e solo', '3.a Fortalecer a implementação da Convenção-Quadro para o Controle do Tabaco em todos os países', '3.b Apoiar pesquisa e desenvolvimento de vacinas e medicamentos para doenças transmissíveis e não transmissíveis, proporcionando acesso a medicamentos essenciais a preços acessíveis', '3.c Aumentar substancialmente o financiamento da saúde e recrutamento de pessoal de saúde nos países em desenvolvimento', '3.d Reforçar a capacidade para alerta precoce, redução de riscos e gerenciamento de riscos nacionais e globais de saúde'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">3</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Saúde e Bem-estar</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Vida saudável para todos em todas as idades</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(4, 'Educação de Qualidade', 'Objetivo 4. Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todas e todos', ['4.1 Até 2030, garantir que todas as meninas e meninos completem o ensino primário e secundário livre, equitativo e de qualidade, que conduza a resultados de aprendizagem relevantes e eficazes', '4.2 Até 2030, garantir que todas as meninas e meninos tenham acesso a um desenvolvimento de qualidade na primeira infância, cuidados e educação pré-escolar', '4.3 Até 2030, assegurar a igualdade de acesso para todos os homens e mulheres à educação técnica, profissional e superior de qualidade, a preços acessíveis', '4.4 Até 2030, aumentar substancialmente o número de jovens e adultos que tenham habilidades relevantes, inclusive competências técnicas e profissionais, para emprego e empreendedorismo', '4.5 Até 2030, eliminar as disparidades de gênero na educação e garantir igualdade de acesso para os mais vulneráveis, incluindo pessoas com deficiência e povos indígenas', '4.6 Até 2030, garantir que todos os jovens e uma substancial proporção dos adultos estejam alfabetizados e tenham adquirido conhecimento básico de matemática', '4.7 Até 2030, garantir que todos os alunos adquiram conhecimentos e habilidades necessárias para promover o desenvolvimento sustentável, incluindo direitos humanos e igualdade de gênero', '4.a Construir e melhorar instalações físicas para educação apropriadas para crianças, sensíveis às deficiências e ao gênero, proporcionando ambientes seguros e inclusivos', '4.b Até 2020, ampliar o número de bolsas de estudo para países em desenvolvimento, em particular para ensino superior, formação profissional e programas científicos', '4.c Até 2030, substancialmente aumentar o contingente de professores qualificados, inclusive por meio da cooperação internacional para formação de professores'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">4</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Educação de Qualidade</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Educação inclusiva e oportunidades de aprendizagem</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(5, 'Igualdade de Gênero', 'Objetivo 5. Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas', ['5.1 Acabar com todas as formas de discriminação contra todas as mulheres e meninas em toda parte', '5.2 Eliminar todas as formas de violência contra mulheres e meninas nas esferas públicas e privadas, incluindo tráfico e exploração sexual', '5.3 Eliminar todas as práticas nocivas, como casamentos prematuros, forçados e mutilações genitais femininas', '5.4 Reconhecer e valorizar o trabalho de assistência e doméstico não remunerado, mediante disponibilização de serviços públicos e proteção social', '5.5 Garantir participação plena e efetiva das mulheres e igualdade de oportunidades para liderança em todos os níveis de tomada de decisão', '5.6 Assegurar acesso universal à saúde sexual e reprodutiva e aos direitos reprodutivos', '5.a Realizar reformas para dar às mulheres direitos iguais aos recursos econômicos, acesso a propriedade, controle sobre a terra e recursos naturais', '5.b Aumentar o uso de tecnologias de base, em particular tecnologias de informação e comunicação, para empoderamento das mulheres', '5.c Adotar e fortalecer políticas sólidas e legislação para promoção da igualdade de gênero e empoderamento de mulheres e meninas'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-red-500 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">5</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Igualdade de Gênero</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Igualdade de gênero e empoderamento feminino</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(6, 'Água Potável e Saneamento', 'Objetivo 6. Assegurar a disponibilidade e gestão sustentável da água e saneamento para todas e todos', ['6.1 Até 2030, alcançar o acesso universal e equitativo a água potável e segura para todos', '6.2 Até 2030, alcançar o acesso a saneamento e higiene adequados e equitativos para todos, e acabar com a defecação a céu aberto', '6.3 Até 2030, melhorar a qualidade da água, reduzindo a poluição, eliminando despejo e minimizando a liberação de produtos químicos e materiais perigosos', '6.4 Até 2030, aumentar substancialmente a eficiência do uso da água em todos os setores e assegurar retiradas sustentáveis e abastecimento de água doce', '6.5 Até 2030, implementar a gestão integrada dos recursos hídricos em todos os níveis, inclusive via cooperação transfronteiriça', '6.6 Até 2020, proteger e restaurar ecossistemas relacionados com a água, incluindo montanhas, florestas, zonas úmidas, rios, aquíferos e lagos', '6.a Até 2030, ampliar a cooperação internacional e o apoio à capacitação para os países em desenvolvimento em atividades relacionadas à água e saneamento', '6.b Apoiar e fortalecer a participação das comunidades locais para melhorar a gestão da água e do saneamento'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">6</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Água Potável</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Água e saneamento para todos</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(7, 'Energia Limpa e Acessível', 'Objetivo 7. Assegurar o acesso confiável, sustentável, moderno e a preço acessível à energia para todas e todos', ['7.1 Até 2030, assegurar o acesso universal, confiável, moderno e a preços acessíveis a serviços de energia', '7.2 Até 2030, aumentar substancialmente a participação de energias renováveis na matriz energética global', '7.3 Até 2030, dobrar a taxa global de melhoria da eficiência energética', '7.a Até 2030, reforçar a cooperação internacional para facilitar o acesso a pesquisa e tecnologias de energia limpa, incluindo energias renováveis, eficiência energética e tecnologias de combustíveis fósseis avançadas e mais limpas', '7.b Até 2030, expandir a infraestrutura e modernizar a tecnologia para o fornecimento de serviços de energia modernos e sustentáveis para todos nos países em desenvolvimento, particularmente nos países menos desenvolvidos, nos pequenos Estados insulares em desenvolvimento e nos países em desenvolvimento sem litoral'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-orange-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">7</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Energia Limpa</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Energia renovável e eficiência energética</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(8, 'Trabalho Decente e Crescimento Econômico', 'Objetivo 8. Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo e trabalho decente para todas e todos', ['8.1 Sustentar o crescimento econômico per capita de acordo com as circunstâncias nacionais e, em particular, um crescimento anual de pelo menos 7% do PIB nos países menos desenvolvidos', '8.2 Atingir níveis mais elevados de produtividade das economias por meio da diversificação, modernização tecnológica e inovação, inclusive por meio de um foco em setores de alto valor agregado', '8.3 Promover políticas orientadas para o desenvolvimento que apoiem as atividades produtivas, geração de emprego decente, empreendedorismo, criatividade e inovação', '8.4 Melhorar progressivamente a eficiência dos recursos globais no consumo e na produção, e dissociar o crescimento econômico da degradação ambiental', '8.5 Até 2030, alcançar o emprego pleno e produtivo e trabalho decente para todas as mulheres e homens, com remuneração igual para trabalho de igual valor', '8.6 Até 2020, reduzir substancialmente a proporção de jovens sem emprego, educação ou formação', '8.7 Tomar medidas imediatas para erradicar o trabalho forçado, escravidão moderna, tráfico de pessoas e trabalho infantil', '8.8 Proteger os direitos trabalhistas e promover ambientes de trabalho seguros para todos os trabalhadores, incluindo os migrantes', '8.9 Até 2030, elaborar e implementar políticas para promover o turismo sustentável que gera empregos', '8.10 Fortalecer a capacidade das instituições financeiras nacionais para incentivar o acesso aos serviços bancários, de seguros e financeiros'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-red-700 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">8</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Trabalho Decente</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Crescimento econômico e trabalho digno</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(9, 'Indústria, inovação e infraestrutura', 'Objetivo 9. Construir infraestruturas resilientes, promover a industrialização inclusiva e sustentável e fomentar a inovação', ['9.1 Desenvolver infraestrutura de qualidade, confiável, sustentável e resiliente, incluindo infraestrutura regional e transfronteiriça, para apoiar o desenvolvimento econômico e o bem-estar humano, com foco no acesso equitativo e a preços acessíveis para todos', '9.2 Promover a industrialização inclusiva e sustentável e, até 2030, aumentar significativamente a participação da indústria no setor de emprego e no PIB, de acordo com as circunstâncias nacionais, e dobrar sua participação nos países menos desenvolvidos', '9.3 Aumentar o acesso das pequenas indústrias e outras empresas, particularmente em países em desenvolvimento, aos serviços financeiros, incluindo crédito acessível e sua integração em cadeias de valor e mercados', '9.4 Até 2030, modernizar a infraestrutura e reabilitar as indústrias para torná-las sustentáveis, com eficiência aumentada no uso de recursos e maior adoção de tecnologias e processos industriais limpos e ambientalmente corretos', '9.5 Fortalecer a pesquisa científica, melhorar as capacidades tecnológicas de setores industriais em todos os países, particularmente os países em desenvolvimento, incentivando a inovação e aumentando substancialmente o número de trabalhadores de pesquisa e desenvolvimento', '9.a Facilitar o desenvolvimento de infraestrutura sustentável e resiliente em países em desenvolvimento, por meio de maior apoio financeiro, tecnológico e técnico aos países africanos, aos países menos desenvolvidos, aos países em desenvolvimento sem litoral e aos pequenos Estados insulares em desenvolvimento', '9.b Apoiar o desenvolvimento tecnológico, a pesquisa e a inovação nacionais nos países em desenvolvimento, inclusive garantindo um ambiente político propício para a diversificação industrial e a agregação de valor às commodities', '9.c Aumentar significativamente o acesso às tecnologias de informação e comunicação e se empenhar para oferecer acesso universal e a preços acessíveis à internet nos países menos desenvolvidos, até 2020'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-yellow-700 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">9</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Indústria e Inovação</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Infraestrutura e inovação tecnológica</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(10, 'Redução das Desigualdades', 'Objetivo 10. Reduzir a desigualdade dentro dos países e entre eles', ['10.1 Até 2030, progressivamente alcançar e sustentar o crescimento da renda dos 40% da população mais pobre a uma taxa maior que a média nacional', '10.2 Até 2030, empoderar e promover a inclusão social, econômica e política de todos, independentemente da idade, gênero, deficiência, raça, etnia, origem, religião, condição econômica ou outra', '10.3 Garantir a igualdade de oportunidades e reduzir as desigualdades de resultados, inclusive por meio da eliminação de leis, políticas e práticas discriminatórias', '10.4 Adotar políticas, especialmente fiscal, salarial e de proteção social, e alcançar progressivamente uma maior igualdade', '10.5 Melhorar a regulamentação e monitoramento dos mercados e instituições financeiras globais e fortalecer a implementação de tais regulamentações', '10.6 Assegurar uma representação e voz mais forte dos países em desenvolvimento em tomadas de decisão nas instituições econômicas e financeiras internacionais globais', '10.7 Facilitar a migração e a mobilidade ordenada, segura, regular e responsável das pessoas, inclusive por meio da implementação de políticas de migração planejadas e bem geridas', '10.a Implementar o princípio do tratamento especial e diferenciado para países em desenvolvimento, em particular os países menos desenvolvidos, em conformidade com os acordos da OMC', '10.b Incentivar a assistência oficial ao desenvolvimento e fluxos financeiros, incluindo o investimento externo direto, para os Estados onde a necessidade é maior', '10.c Até 2030, reduzir para menos de 3% os custos de transação de remessas dos migrantes e eliminar os corredores de remessas com custos superiores a 5%'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">10</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Redução de Desigualdades</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Reduzir desigualdade em todos os níveis</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(11, 'Cidades Sustentáveis', 'Objetivo 11. Tornar as cidades e os assentamentos humanos inclusivos, seguros, resilientes e sustentáveis', ['11.1 Até 2030, garantir o acesso de todos à habitação segura, adequada e a preço acessível, e aos serviços básicos e urbanizar as favelas', '11.2 Até 2030, proporcionar o acesso a sistemas de transporte seguros, acessíveis, sustentáveis e a preço acessível para todos, melhorando a segurança rodoviária por meio da expansão dos transportes públicos, com especial atenção para as necessidades das pessoas em situação de vulnerabilidade, mulheres, crianças, pessoas com deficiência e idosos', '11.3 Até 2030, aumentar a urbanização inclusiva e sustentável, e as capacidades para o planejamento e gestão de assentamentos humanos participativos, integrados e sustentáveis, em todos os países', '11.4 Fortalecer esforços para proteger e salvaguardar o patrimônio cultural e natural do mundo', '11.5 Até 2030, reduzir significativamente o número de mortes e o número de pessoas afetadas por catástrofes e substancialmente diminuir as perdas econômicas diretas causadas por elas em relação ao produto interno bruto global, incluindo os desastres relacionados à água, com o foco em proteger os pobres e as pessoas em situação de vulnerabilidade', '11.6 Até 2030, reduzir o impacto ambiental negativo per capita das cidades, inclusive prestando especial atenção à qualidade do ar, gestão de resíduos municipais e outros', '11.7 Até 2030, proporcionar o acesso universal a espaços públicos seguros, inclusivos, acessíveis e verdes, particularmente para as mulheres e crianças, pessoas idosas e pessoas com deficiência', '11.a Apoiar relações econômicas, sociais e ambientais positivas entre áreas urbanas, periurbanas e rurais, reforçando o planejamento nacional e regional de desenvolvimento', '11.b Até 2020, aumentar substancialmente o número de cidades e assentamentos humanos adotando e implementando políticas e planos integrados para a inclusão, a eficiência dos recursos, mitigação e adaptação às mudanças climáticas, a resiliência a desastres', '11.c Apoiar os países menos desenvolvidos, inclusive por meio de assistência técnica e financeira, para construções sustentáveis e resilientes, utilizando materiais locais'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">11</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Cidades Sustentáveis</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Cidades inclusivas e resilientes</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(12, 'Consumo Responsável', 'Objetivo 12. Assegurar padrões de produção e consumo sustentáveis', ['12.2 Atingir gestão sustentável dos recursos naturais', '12.3 Reduzir à metade o desperdício mundial de alimentos per capita', '12.5 Reduzir substancialmente a geração de resíduos', '12.8 Sensibilizar população para estilo de vida sustentável'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">12</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Consumo Responsável</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Produção e consumo sustentáveis</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(13, 'Ação Climática', 'Objetivo 13. Tomar medidas urgentes para combater a mudança do clima e seus impactos', ['13.1 Fortalecer resiliência e capacidade de adaptação a riscos climáticos', '13.2 Integrar políticas de mudança climática em planos e políticas', '13.3 Melhorar educação e conscientização sobre mudança climática', '13.a Implementar Convenção-Quadro das Nações Unidas sobre Mudança do Clima'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-green-700 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">13</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Ação Climática</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Combater mudança climática e seus impactos</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(14, 'Vida Aquática', 'Objetivo 14. Conservar e explorar de forma sustentável os oceanos, mares e recursos marinhos', ['14.1 Prevenir e reduzir a poluição marinha', '14.2 Proteger e restaurar ecossistemas marinhos e costeiros', '14.4 Acabar com a pesca excessiva e prática de pesca ilegal', '14.5 Conservar pelo menos 10% das áreas costeiras e marinhas'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">14</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Vida Aquática</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Conservar oceanos, mares e recursos marinhos</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(15, 'Vida Terrestre', 'Objetivo 15. Proteger, restaurar e promover o uso sustentável dos ecossistemas terrestres', ['15.1 Garantir conservação, restauração e uso sustentável de ecossistemas', '15.2 Promover manejo florestal sustentável e combater desflorestação', '15.3 Combater desertificação e restaurar terras degradadas', '15.5 Reduzir degradação de habitats naturais e perda de biodiversidade'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">15</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Vida Terrestre</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Proteger ecossistemas e biodiversidade</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(16, 'Paz e Justiça', 'Objetivo 16. Promover sociedades pacíficas e inclusivas para o desenvolvimento sustentável', ['16.1 Reduzir todas as formas de violência e taxas de mortalidade relacionadas', '16.2 Acabar com abuso, exploração, tráfico e tortura de crianças', '16.3 Promover Estado de direito e igualdade de acesso à justiça', '16.6 Desenvolver instituições eficazes, responsáveis e inclusivas'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-blue-800 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">16</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Paz e Justiça</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Sociedades pacíficas e justas</p>
+       </div>
+       <div class="fade-in bg-white rounded-lg p-4 border border-gray-100 hover:border-gray-300 transition-colors cursor-pointer hover:shadow-md" onclick="openOdsModal(17, 'Parcerias para os Objetivos', 'Objetivo 17. Fortalecer os meios de implementação e revitalizar a parceria global para o desenvolvimento sustentável', ['17.1 Fortalecer mobilização de recursos internos para gastos públicos', '17.3 Mobilizar recursos financeiros adicionais para países em desenvolvimento', '17.5 Promover transferência de tecnologias ambientalmente saudáveis', '17.16 Reforçar parceria global para desenvolvimento sustentável'])">
+        <div class="flex items-center gap-3 mb-2">
+         <div class="w-8 h-8 bg-purple-600 rounded flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-xs font-bold">17</span>
+         </div>
+         <h3 class="font-heading text-sm text-gray-900">Parcerias para ODS</h3>
+        </div>
+        <p class="text-gray-500 text-xs">Parcerias para implementação dos ODS</p>
+       </div>
+      </div>
+     </div>
+    </section>
    </section>
-
-   <!-- EIXOS ESTRATÉGICOS -->
-   <section id="eixos" class="w-full bg-white">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-     <div class="text-center mb-16 fade-in">
-      <p class="text-sm uppercase tracking-widest text-gray-400 mb-3">Estratégias Integradas</p>
-      <h2 class="font-heading text-3xl md:text-4xl text-gray-900">6 Eixos Estratégicos para a Agenda 2030</h2>
-      <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Pilares fundamentais para implementação efetiva dos Objetivos de Desenvolvimento Sustentável</p>
-     </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Eixo 1 -->
-      <div class="target-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-blue-600 text-white"><i data-lucide="landmark" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 1 — Instituições Democráticas</h3><p class="text-gray-600 text-sm mt-2">Fortalecer instituições e assegurar controle social</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais estratégias devem ser adotadas para fortalecer as instituições democráticas e assegurar o controle social e o diálogo aberto na implementação de políticas públicas representativas?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Instituições democráticas • Participação cidadã • Transparência • Prestação de contas • Políticas representativas</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 5<span class="ods-tooltip">Igualdade de Género</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 10<span class="ods-tooltip">Redução de Desigualdades</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 16<span class="ods-tooltip">Paz e Justiça</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-blue-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span>
-       </div>
+  </div><!-- Footer -->
+  <footer class="w-full bg-gray-900 text-gray-100 border-t border-gray-800">
+   <div class="max-w-6xl mx-auto px-6 py-8">
+    <p class="text-gray-400 text-sm">Desenvolvido por <strong>Stanley Miguel</strong> - GOPS</p>
+   </div>
+  </footer><!-- Modal ODS -->
+  <div id="odsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="if(event.target === this) closeOdsModal()">
+   <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto">
+    <div class="sticky top-0 bg-white border-b border-gray-100 px-8 py-6 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div id="modalOdsNumber" class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0"><span class="text-white font-heading text-lg font-bold">1</span>
       </div>
-      <!-- Eixo 2 -->
-      <div class="target-card bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-green-600 text-white"><i data-lucide="leaf" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 2 — Sustentabilidade Ambiental</h3><p class="text-gray-600 text-sm mt-2">Preservar recursos naturais e biodiversidade</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais medidas práticas devem ser propostas para que as cadeias produtivas assegurem a preservação dos recursos naturais e da biodiversidade, fortalecendo a resiliência climática?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Recursos naturais • Biodiversidade • Cadeias produtivas • Resiliência climática • Práticas de preservação</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 6<span class="ods-tooltip">Água Potável e Saneamento</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 7<span class="ods-tooltip">Energia Limpa e Acessível</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 13<span class="ods-tooltip">Ação Climática</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-green-600 rounded-full"></span>ODS 15<span class="ods-tooltip">Vida Terrestre</span></span>
-       </div>
+      <div>
+       <p class="text-xs uppercase tracking-widest text-gray-400">Objetivo</p>
+       <h2 class="font-heading text-2xl text-gray-900" id="modalOdsTitle"></h2>
       </div>
-      <!-- Eixo 3 -->
-      <div class="target-card bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-purple-600 text-white"><i data-lucide="users" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 3 — Inclusão Social</h3><p class="text-gray-600 text-sm mt-2">Combater desigualdades e promover equidade</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">Como garantir que as vozes dos grupos priorizados pelas políticas públicas sejam ouvidas na construção coletiva de uma sociedade mais justa e equitativa?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Inclusão social • Grupos priorizados • Sociedade justa • Equidade • Combate às desigualdades</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 1<span class="ods-tooltip">Erradicação da Pobreza</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 4<span class="ods-tooltip">Educação de Qualidade</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-purple-200 text-purple-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-purple-600 rounded-full"></span>ODS 10<span class="ods-tooltip">Redução de Desigualdades</span></span>
-       </div>
-      </div>
-      <!-- Eixo 4 -->
-      <div class="target-card bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-8 border border-cyan-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-cyan-600 text-white"><i data-lucide="lightbulb" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 4 — Inovação Tecnológica</h3><p class="text-gray-600 text-sm mt-2">Soluções criativas para desafios socioambientais</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">De que forma a inovação tecnológica deve ser incentivada como ferramenta eficaz para gerar soluções que enfrentem os desafios sociais e ambientais?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Inovação tecnológica • Desafios socioambientais • Soluções criativas • Ferramenta eficaz • Desenvolvimento sustentável</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 4<span class="ods-tooltip">Educação de Qualidade</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 9<span class="ods-tooltip">Indústria e Inovação</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-cyan-200 text-cyan-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-cyan-600 rounded-full"></span>ODS 11<span class="ods-tooltip">Cidades Sustentáveis</span></span>
-       </div>
-      </div>
-      <!-- Eixo 5 -->
-      <div class="target-card bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 border border-indigo-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-indigo-600 text-white"><i data-lucide="network" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 5 — Governança Participativa</h3><p class="text-gray-600 text-sm mt-2">Colaboração e integração de perspectivas</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais modelos de colaboração entre setores podem ser estabelecidos para garantir a integração de perspectivas e implementação efetiva dos ODS?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Governança participativa • Transparência • Colaboração setorial • Integração de perspectivas • Implementação efetiva</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 16<span class="ods-tooltip">Paz e Justiça</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-indigo-200 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-indigo-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span>
-       </div>
-      </div>
-      <!-- Eixo 6 -->
-      <div class="target-card bg-gradient-to-br from-rose-50 to-rose-100 rounded-2xl p-8 border border-rose-200 fade-in">
-       <div class="flex items-start gap-4 mb-4"><div class="icon-circle bg-rose-600 text-white"><i data-lucide="handshake" style="width:24px;height:24px"></i></div>
-       <div><h3 class="font-heading text-xl text-gray-900">Eixo 6 — Colaboração Multissetorial</h3><p class="text-gray-600 text-sm mt-2">Financiamento e esforços coletivos</p></div></div>
-       <p class="text-gray-700 text-sm leading-relaxed mb-4">Quais estratégias de colaboração multissetorial devem ser instituídas para unir esforços e assegurar recursos adequados para a Agenda 2030?</p>
-       <div class="bg-white rounded-lg p-3 mb-3"><p class="text-xs font-semibold text-gray-600 mb-2">Termos-chave:</p><p class="text-xs text-gray-500">Colaboração multissetorial • Financiamento • Recursos adequados • Organismos internacionais • Esforços coletivos</p></div>
-       <div class="flex gap-2 flex-wrap">
-        <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 8<span class="ods-tooltip">Trabalho Decente</span></span>
-        <span class="ods-badge inline-flex items-center gap-1 bg-rose-200 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="w-2 h-2 bg-rose-600 rounded-full"></span>ODS 17<span class="ods-tooltip">Parcerias</span></span>
-       </div>
-      </div>
-     </div>
+     </div><button onclick="closeOdsModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-2"> <i data-lucide="x" style="width:24px;height:24px"></i> </button>
     </div>
-   </section>
-
-   <!-- Footer -->
-   <footer class="w-full bg-white border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 py-12">
-     <div class="text-center mb-8">
-      <p class="text-gray-400 text-sm mb-6">Agenda 2030 para o Desenvolvimento Sustentável — Nações Unidas</p>
-      <div class="flex items-center justify-center gap-6 flex-wrap">
-       <div class="flex items-center gap-2"><div class="w-6 h-6 bg-sdg-red rounded flex items-center justify-center"><span class="text-white font-heading text-xs font-bold">4</span></div><span class="text-gray-600 text-xs font-medium">ODS 4 — Foco SENAC</span></div>
-       <div class="flex items-center gap-2"><div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center"><span class="text-white font-heading text-xs font-bold">6</span></div><span class="text-gray-600 text-xs font-medium">ODS 6 — Foco SENAC</span></div>
-       <div class="flex items-center gap-2"><div class="w-6 h-6 bg-orange-600 rounded flex items-center justify-center"><span class="text-white font-heading text-xs font-bold">7</span></div><span class="text-gray-600 text-xs font-medium">ODS 7 — Foco SENAC</span></div>
-      </div>
-     </div>
-     <p class="text-center text-gray-400 text-xs">Desenvolvido com foco nos Objetivos de Desenvolvimento Sustentável do SENAC</p>
-    </div>
-   </footer>
-
-   <!-- ============================================================
-        VÍDEO MODAL — Google Drive via <video> nativo
-        Troque o ID abaixo se mudar o arquivo no Drive:
-        ID atual: 1F-u6xSJQ4T-VBRNZs4f5mG6ONaDx_3a8
-   ============================================================ -->
-   <div id="videoModal"
-        class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4"
-        onclick="if(event.target===this) closeVideoModal()">
-    <div class="relative w-full max-w-4xl" style="aspect-ratio:16/9;">
-     <!-- Botão fechar -->
-     <button onclick="closeVideoModal()"
-             class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors p-2 z-50 flex items-center gap-2">
-      <i data-lucide="x" style="width:28px;height:28px"></i>
-     </button>
-     <!-- Player nativo -->
-     <video id="videoPlayer"
-            controls
-            class="w-full h-full rounded-2xl bg-black"
-            style="outline:none; display:block;">
-      <source id="videoSource"
-              src=""
-              type="video/mp4">
-      Seu navegador não suporta o elemento de vídeo.
-     </video>
+    <div class="px-8 py-8">
+     <p class="font-heading text-lg text-gray-900 mb-6" id="modalOdsDescription"></p>
+     <div class="space-y-4" id="modalOdsMetas"></div>
     </div>
    </div>
-
-  </div><!-- /mainWrapper -->
-
+  </div>
   <script>
-    /* ─── Scroll reveal ─── */
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    /* ─── Lucide icons ─── */
-    lucide.createIcons();
-
-    /* ─── Vídeo Modal ─── */
-    const DRIVE_FILE_ID = '1F-u6xSJQ4T-VBRNZs4f5mG6ONaDx_3a8';
-    // Tenta streaming direto; se falhar, abre no Drive
-    const VIDEO_URL = `https://drive.google.com/uc?id=${DRIVE_FILE_ID}&export=download&confirm=t`;
-
-    function openVideoModal() {
-      const modal  = document.getElementById('videoModal');
-      const source = document.getElementById('videoSource');
-      const video  = document.getElementById('videoPlayer');
-
-      source.src = VIDEO_URL;
-      video.load();
-
-      modal.style.display = 'flex';
-      lucide.createIcons(); // re-render X icon
-
-      // Fallback: se não carregar em 4s, abre no Drive
-      const fallbackTimer = setTimeout(() => {
-        if (video.readyState === 0) {
-          closeVideoModal();
-          window.open(`https://drive.google.com/file/d/${DRIVE_FILE_ID}/view`, '_blank');
-        }
-      }, 4000);
-
-      video.addEventListener('canplay', () => clearTimeout(fallbackTimer), { once: true });
-      video.play().catch(() => {}); // autoplay pode ser bloqueado pelo browser — ignora silenciosamente
-    }
-
-    function closeVideoModal() {
-      const modal = document.getElementById('videoModal');
-      const video = document.getElementById('videoPlayer');
-      video.pause();
-      video.currentTime = 0;
-      document.getElementById('videoSource').src = '';
-      video.load();
-      modal.style.display = 'none';
-    }
-
-    // Fechar com ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeVideoModal();
+    document.addEventListener('DOMContentLoaded', function () {
+      lucide.createIcons();
     });
+  </script><!-- Animações fade-in via IntersectionObserver -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll('.fade-in').forEach((el) => {
+        observer.observe(el);
+      });
+    });
+  </script><!-- Modal ODS -->
+  <script>
+    const colorMap = {
+      red: {bg600:'#dc2626', bg100:'#fee2e2', text700:'#b91c1c'},
+      yellow: {bg600:'#ca8a04', bg100:'#fef9c3', text700:'#a16207'},
+      green: {bg600:'#16a34a', bg100:'#dcfce7', text700:'#15803d'},
+      blue: {bg600:'#2563eb', bg100:'#dbeafe', text700:'#1d4ed8'},
+      orange: {bg600:'#ea580c', bg100:'#ffedd5', text700:'#c2410c'},
+      purple: {bg600:'#9333ea', bg100:'#f3e8ff', text700:'#7e22ce'},
+      violet: {bg600:'#7c3aed', bg100:'#ede9fe', text700:'#6d28d9'},
+      amber: {bg600:'#d97706', bg100:'#fef3c7', text700:'#b45309'},
+      teal: {bg600:'#0d9488', bg100:'#ccfbf1', text700:'#0f766e'}
+    };
+
+    function openOdsModal(number, title, description, metas) {
+      const colors = ['red','yellow','green','red','purple','blue','orange','amber','yellow','red','amber','teal','green','blue','green','violet','purple','violet'];
+      const color = colors[number - 1] || 'red';
+      const colorData = colorMap[color] || colorMap.red;
+
+      const modal = document.getElementById('odsModal');
+      document.getElementById('modalOdsNumber').style.backgroundColor = colorData.bg600;
+      document.getElementById('modalOdsNumber').innerHTML = `<span class="text-white font-heading text-lg font-bold">${number}</span>`;
+      document.getElementById('modalOdsTitle').textContent = title;
+      document.getElementById('modalOdsDescription').textContent = description;
+
+      const metasContainer = document.getElementById('modalOdsMetas');
+      metasContainer.innerHTML = '';
+
+      metas.forEach((meta, index) => {
+        const metaEl = document.createElement('div');
+        metaEl.className = 'bg-gray-50 rounded-lg p-4 border border-gray-100';
+        metaEl.innerHTML = `
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold" style="min-width:24px; background-color:${colorData.bg100}; color:${colorData.text700};">
+              ${index + 1}
+            </div>
+            <p class="text-gray-700 text-sm leading-relaxed">${meta}</p>
+          </div>
+        `;
+        metasContainer.appendChild(metaEl);
+      });
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeOdsModal() {
+      document.getElementById('odsModal').classList.add('hidden');
+    }
   </script>
- </body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ea158e136926491',t:'MTc3NTgxOTg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
