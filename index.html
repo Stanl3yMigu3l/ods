@@ -146,6 +146,17 @@
       pointer-events: none;
       z-index: 0;
     }
+:root { --comp-ink:#17352c; --comp-green:#184e3b; --comp-lime:#d7edaa; --comp-paper:#f5f2e9; --comp-line:#d8ded0; }
+  .comp-section { background: var(--comp-paper); }
+  .comp-card { border:1px solid var(--comp-line); background:#fffefa; box-shadow:0 8px 28px rgba(23,53,44,0.07); }
+  .comp-sesc  { background:#f1f5ec; }
+  .comp-senac { background:#e9f0e9; }
+  .comp-next  { background:#f5ead0; }
+  .comp-tag-ref { background:#d7edaa; color:#184e3b; font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:999px; display:inline-block; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .comp-tag-pos { background:#e5e7eb; color:#6b7280; font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:999px; display:inline-block; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .comp-tag-opp { background:#fef3c7; color:#92400e; font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:999px; display:inline-block; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .comp-ods-number { font-size:2.5rem; font-family:'DM Serif Display',serif; color:var(--comp-lime); line-height:1; margin-bottom:4px; }
+  .comp-text { font-size:0.825rem; line-height:1.65; color:var(--comp-ink); }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -158,10 +169,10 @@
       <div class="w-10 h-10 bg-sdg-red rounded-lg flex items-center justify-center"><i data-lucide="globe" style="width:24px;height:24px;color:white;"></i>
       </div><span class="font-heading text-xl text-gray-900" id="nav-title">ODS</span>
      </div>
-     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500"><a href="#ods4" class="hover:text-gray-900 transition-colors">ODS 4</a> <a href="#ods6" class="hover:text-gray-900 transition-colors">ODS 6</a> <a href="#ods7" class="hover:text-gray-900 transition-colors">ODS 7</a> <a href="#eixos" class="hover:text-gray-900 transition-colors">Eixos</a>
+     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500"><a href="#ods4" class="hover:text-gray-900 transition-colors">ODS 4</a> <a href="#ods6" class="hover:text-gray-900 transition-colors">ODS 6</a> <a href="#ods7" class="hover:text-gray-900 transition-colors">ODS 7</a> <a href="#comparativo" class="hover:text-gray-900 transition-colors">Comparativo</a> <a href="#eixos" class="hover:text-gray-900 transition-colors">Eixos</a>
      </div>
      <div class="md:hidden flex gap-2">
-      <button onclick="document.getElementById('ods4').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 4</button> <button onclick="document.getElementById('ods6').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 6</button> <button onclick="document.getElementById('ods7').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 7</button> <button onclick="document.getElementById('eixos').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">Eixos</button>
+      <button onclick="document.getElementById('ods4').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 4</button> <button onclick="document.getElementById('ods6').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 6</button> <button onclick="document.getElementById('ods7').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">ODS 7</button> <button onclick="document.getElementById('comparativo').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">Comparativo</button> <button onclick="document.getElementById('eixos').scrollIntoView({behavior:'smooth'})" class="px-2 py-1 text-xs font-medium bg-gray-100 hover:bg-gray-200 rounded transition-colors">Eixos</button>
      </div>
     </div>
    </nav><!-- Seção Introdutória - O que é ODS (Movida para o topo) -->
@@ -1140,6 +1151,306 @@
       </div>
      </div>
     </section><!-- EIXOS ESTRATÉGICOS -->
+    <section id="comparativo" class="w-full comp-section">
+     <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-16 fade-in">
+       <p class="text-sm uppercase tracking-widest mb-3" style="color:var(--comp-green);">Sete Objetivos, Caminhos Concretos</p>
+       <h2 class="font-heading text-3xl md:text-4xl" style="color:var(--comp-ink);">Comparativo — Sesc &amp; Senac Roraima</h2>
+       <p class="mt-4 max-w-2xl mx-auto text-sm comp-text">Os resultados do Sesc são referência. As ideias para o Senac são propostas para desenvolver e medir.</p>
+      </div>
+      <div class="space-y-6">
+
+       <!-- ODS 02 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">02</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Fome Zero e Agricultura Sustentável</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O Mesa Brasil Roraima arrecada e distribui alimentos a instituições sociais. Entre maio de 2025 e julho de 2026, registrou mais de 395 toneladas doadas, provenientes de 1.032 doações.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">Não foi informado um projeto recorrente do Senac equivalente ao Mesa Brasil. Há espaço para conectar formação profissional, alimentação e combate ao desperdício.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Firmar parcerias com bancos de alimentos e entidades locais; oferecer oficinas de aproveitamento integral e conservação; mobilizar cursos de gastronomia para ações educativas; estabelecer coleta periódica de excedentes aptos ao consumo. Registrar quilos destinados, instituições atendidas e participantes.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 03 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">03</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Saúde e Bem-Estar</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O programa Cuidar de Quem Cuida reúne prevenção, saúde, segurança e qualidade de vida. No período avaliado, registrou 754 participações, envolvendo 461 colaboradores.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">O Senac Roraima conta com CIPA para prevenção de acidentes e assédio e oferece capacitação em Segurança do Trabalho por meio do Senac EAD.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Transformar a atuação da CIPA em calendário anual: ergonomia, prevenção ao assédio, segurança em laboratórios e cozinhas, pausas ativas e campanhas de saúde. Criar canais claros de orientação e registrar ações, participações e colaboradores alcançados.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 04 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">04</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Educação de Qualidade</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O programa de formação continuada reuniu treinamentos, oficinas, palestras e eventos. Foram registradas 207 participações, 121 horas de formação e 41 Jovens Aprendizes alcançados.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">Conforme informado, o Senac oferece treinamentos de informática, TR e marketing para colaboradores, além de palestras na área administrativa.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Reunir as capacitações em um programa anual; incluir acessibilidade, competências digitais, atendimento, gestão e formação de instrutores; criar trilhas para aprendizes e equipes do interior. Documentar horas oferecidas, presenças, certificados e avaliação de aprendizagem.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 05 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">05</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Igualdade de Gênero</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O Nós por Elas desenvolve ações de prevenção ao assédio e à violência, orientação e valorização das mulheres, incluindo capacitações, campanhas, autocuidado, defesa pessoal e fluxos de acolhimento.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">Segundo as informações fornecidas, as ações nessa área não são recorrentes e se concentram em datas comemorativas. A CIPA pode contribuir com a prevenção ao assédio.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Criar programação permanente, não apenas em março: formação sobre respeito e prevenção ao assédio, divulgação de canais de apoio, parcerias com a rede local de proteção e oficinas de autonomia econômica. Definir protocolo de acolhimento e medir ações e público alcançado, sem expor relatos pessoais.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 07 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">07</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Energia Limpa e Acessível</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O sistema solar do Sesc possui 2.580 módulos e potência aproximada de 1,406 MWp. Em operação completa desde novembro de 2022, beneficia três instalações e registra geração acumulada aproximada de 3,73 milhões de kWh.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">Conforme informado, o Senac também utiliza energia solar nas unidades Ernane Galvêas, Idiomas, Bernardo Cabral, Saúde e em duas unidades do interior. Não foram fornecidos dados consolidados de geração.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Consolidar potência, geração e consumo por unidade; comparar períodos e publicar resultados verificáveis; realizar manutenção preventiva e ações educativas sobre eficiência energética. Definir metas a partir da linha de base apurada, sem usar os números do Sesc como números do Senac.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 08 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">08</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Trabalho Decente e Crescimento Econômico</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O Só Tem no Tepequém valorizou artesãos locais: 36 beneficiados, 77 encontros formativos, duas coleções autorais, seis exposições, sete desfiles e 32 feiras de artesanato.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">Não foi informado um projeto do Senac equivalente a essa iniciativa territorial de artesanato e geração de renda.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Construir um projeto-piloto com artesãos e empreendedores locais: oficinas de precificação, atendimento, fotografia de produtos e vendas digitais; mentorias e mostras de comercialização; parcerias com associações e municípios. Medir participantes, horas de formação e oportunidades de venda geradas.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 09 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">09</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Indústria, Inovação e Infraestrutura</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Possibilidade · Sesc</span>
+           <p class="comp-text">Não foi identificada, nas informações fornecidas, uma iniciativa específica do Sesc para este ODS.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Potencial · Senac</span>
+           <p class="comp-text">A educação profissional, os laboratórios e a conexão com empresas podem aproximar estudantes de tecnologia, inovação e soluções para desafios locais.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Caminhos · 2027</span>
+           <p class="comp-text">Criar desafios de inovação com empresas e órgãos públicos; oferecer trilhas de tecnologia, manutenção, empreendedorismo e transformação digital; medir projetos desenvolvidos, participantes e parcerias.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 10 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">10</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Redução das Desigualdades</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Possibilidade · Sesc</span>
+           <p class="comp-text">Não foi identificada, nas informações fornecidas, uma iniciativa específica do Sesc para este ODS.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Potencial · Senac</span>
+           <p class="comp-text">Por meio do PSG Gratuidade, o Senac pode ampliar o acesso a cursos gratuitos de formação profissional para pessoas de baixa renda, jovens, pessoas com deficiência e moradores do interior, fortalecendo oportunidades de trabalho e renda.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Caminhos · 2027</span>
+           <p class="comp-text">Consolidar o PSG Gratuidade em um plano anual: mapear demanda e barreiras de acesso; divulgar cursos gratuitos; fortalecer acessibilidade e turmas descentralizadas; acompanhar inscrições, matrículas, frequência, conclusão e inserção profissional por público, território e modalidade.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 11 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">11</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Cidades e Comunidades Sustentáveis</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Possibilidade · Sesc</span>
+           <p class="comp-text">Não foi identificada, nas informações fornecidas, uma iniciativa específica do Sesc para este ODS.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Potencial · Senac</span>
+           <p class="comp-text">O Senac Ação leva atendimento aberto à comunidade e transforma a formação em serviço: estudantes, com orientação docente, aplicam na prática cursos como corte de cabelo, manicure, pedicure e massagem. A iniciativa aproxima o Senac dos territórios e amplia o acesso da população a serviços e experiências de qualificação.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Caminhos · 2027</span>
+           <p class="comp-text">Ampliar o Senac Ação em parceria com municípios, associações e empreendedores locais, levando atendimentos e oficinas dos cursos para diferentes territórios. Priorizar acessibilidade, turismo responsável, economia criativa e serviços digitais; medir municípios parceiros, atendimentos, participantes, horas de formação, projetos apoiados e pessoas alcançadas.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 12 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">12</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Consumo e Produção Responsáveis</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-ref">Referência · Sesc</span>
+           <p class="comp-text">O Ecos Circular documentou dez entregas e 2.039,81 kg de recicláveis entre junho de 2025 e julho de 2026. Com 407 kg arrecadados na Semana S, o total chegou a 2.446,81 kg destinados corretamente.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Situação · Senac</span>
+           <p class="comp-text">O Senac também possui o projeto Ecos e participa da Semana S. Não foram fornecidos volumes ou resultados consolidados para suas unidades.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Oportunidades · 2027</span>
+           <p class="comp-text">Padronizar a separação de resíduos nas unidades; firmar destinação com cooperativas; pesar cada entrega com comprovantes; integrar a Semana S ao acompanhamento anual. Incluir redução de descartáveis, compras responsáveis e oficinas de reaproveitamento. Divulgar quilos por material e unidade.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 16 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">16</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Paz, Justiça e Instituições Eficazes</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Possibilidade · Sesc</span>
+           <p class="comp-text">Não foi identificada, nas informações fornecidas, uma iniciativa específica do Sesc para este ODS.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Potencial · Senac</span>
+           <p class="comp-text">Canais de escuta, prevenção ao assédio, ética e transparência podem fortalecer um ambiente institucional seguro e confiável.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Caminhos · 2027</span>
+           <p class="comp-text">Publicar protocolos e canais de orientação; capacitar equipes sobre conduta e direitos; registrar atendimentos de forma protegida e acompanhar ações preventivas, sem expor relatos pessoais.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+       <!-- ODS 17 -->
+       <article class="comp-card rounded-2xl overflow-hidden fade-in">
+        <div class="grid lg:grid-cols-[200px_1fr]">
+         <div class="p-6 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r" style="border-color:var(--comp-line);background:var(--comp-paper);">
+          <div class="comp-ods-number">17</div>
+          <p class="font-heading text-base" style="color:var(--comp-ink);">Parcerias e Meios de Implementação</p>
+         </div>
+         <div class="grid md:grid-cols-3">
+          <div class="comp-sesc p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Possibilidade · Sesc</span>
+           <p class="comp-text">As iniciativas apresentadas indicam oportunidades de articulação com instituições sociais, empresas, municípios e redes de proteção.</p>
+          </div>
+          <div class="comp-senac p-6 border-b md:border-b-0 md:border-r" style="border-color:var(--comp-line);">
+           <span class="comp-tag-pos">Potencial · Senac</span>
+           <p class="comp-text">A capilaridade do Senac e sua conexão com empresas podem ampliar parcerias para formação, inovação, empregabilidade e desenvolvimento territorial.</p>
+          </div>
+          <div class="comp-next p-6">
+           <span class="comp-tag-opp">Caminhos · 2027</span>
+           <p class="comp-text">Mapear parceiros por ODS e formalizar planos de trabalho; definir contrapartidas e responsáveis; publicar resultados anuais. Indicadores: parcerias ativas, recursos mobilizados, ações conjuntas, beneficiários e resultados por território.</p>
+          </div>
+         </div>
+        </div>
+       </article>
+
+      </div>
+     </div>
+    </section><!-- COMPARATIVO END -->
     <section id="eixos" class="w-full bg-white">
      <div class="max-w-6xl mx-auto px-6 py-20">
       <div class="text-center mb-16 fade-in">
